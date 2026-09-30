@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Security and Trust</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050404;
+    --gold: #F2C57C;
+    --gold-dim: #C9A46A;
+    --text: #F4EFE7;
+    --muted: #BDB5A8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .page { width: 1440px; margin: 0 auto; background: var(--bg); overflow: hidden; }
+  section { position: relative; width: 1440px; overflow: hidden; }
+  .deco { position: absolute; left: 0; top: 0; pointer-events: none; }
+
+  .eyebrow { position: absolute; left: 82px; display: flex; align-items: center; gap: 22px; font: 500 12px/1 Inter, sans-serif; letter-spacing: .08em; color: #D9CFBF; text-transform: uppercase; }
+  .eyebrow::before { content: ""; width: 56px; height: 2px; background: var(--gold); }
+  h2 { position: absolute; left: 80px; font-family: Manrope, sans-serif; font-weight: 700; letter-spacing: -0.03em; color: #FFFFFF; line-height: 1.08; }
+  .gold { background: linear-gradient(180deg, #FBD48A 0%, #E9A93F 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .copy { position: absolute; left: 82px; font: 400 17.5px/1.62 Inter, sans-serif; color: var(--muted); }
+
+  .btn { position: absolute; height: 56px; display: flex; align-items: center; justify-content: space-between; padding: 0 28px;
+    border: 1.5px solid var(--gold); border-radius: 4px; font: 600 14px/1 Inter, sans-serif; letter-spacing: .08em; color: var(--gold); text-transform: uppercase;
+    box-shadow: 0 0 18px rgba(242,197,124,.12); }
+
+  .ibox { width: 46px; height: 46px; flex: none; display: grid; place-items: center; border-radius: 8px;
+    border: 1px solid rgba(242,197,124,.5); background: radial-gradient(circle at 50% 30%, rgba(242,197,124,.16), rgba(0,0,0,.2)); }
+  .ibox.sm { width: 42px; height: 42px; }
+
+  .sep { height: 1px; width: 1440px; background: linear-gradient(90deg, rgba(242,197,124,.1), rgba(242,197,124,.55) 50%, rgba(242,197,124,.1)); }
+
+  /* ---------- 1. Guardrails ---------- */
+  .guard { height: 680px; background:
+      radial-gradient(460px 380px at 982px 300px, rgba(227,160,60,.16), transparent 70%),
+      radial-gradient(520px 300px at 120px 640px, rgba(227,160,60,.10), transparent 70%),
+      var(--bg); }
+  .guard h2 { top: 196px; font-size: 62px; }
+  .guard .copy { top: 372px; width: 450px; font-size: 21px; line-height: 1.5; color: #CEC6B9; }
+  .fam { position: absolute; width: 276px; height: 143px; border-radius: 8px; padding: 18px 18px 0 18px;
+    border: 1px solid rgba(242,197,124,.42); background: linear-gradient(160deg, rgba(40,31,18,.9), rgba(10,9,7,.95));
+    box-shadow: 0 0 24px rgba(227,160,60,.08), inset 0 0 30px rgba(242,197,124,.04); }
+  .fam .ibox { position: absolute; left: 14px; top: 16px; }
+  .fam-t { margin-left: 74px; font: 600 16px/1.2 Inter, sans-serif; color: #FFF; }
+  .fam-d { margin: 10px 0 0 74px; font: 400 13px/1.5 Inter, sans-serif; color: #C9C1B4; }
+  .hex-label { position: absolute; left: 882px; width: 200px; text-align: center; }
+
+  /* ---------- 2. Environment ---------- */
+  .env { height: 640px; background:
+      radial-gradient(420px 360px at 910px 340px, rgba(227,160,60,.10), transparent 70%),
+      var(--bg); }
+  .env h2 { top: 114px; font-size: 54px; }
+  .env .copy { width: 620px; }
+  .env-title { position: absolute; left: 742px; width: 376px; top: 96px; text-align: center; font: 600 15px/1 Inter, sans-serif; color: #EDE6DA; }
+  .env-row { position: absolute; left: 788px; width: 272px; height: 55px; display: flex; align-items: center; gap: 18px; padding-left: 6px;
+    border: 1px solid rgba(242,197,124,.22); border-right: 0; border-radius: 4px 0 0 4px;
+    background: linear-gradient(90deg, rgba(40,31,18,.8), rgba(20,16,10,.5)); font: 500 15px/1 Inter, sans-serif; color: #EFE8DC; }
+  .llm-label { position: absolute; left: 1080px; width: 136px; top: 294px; text-align: center; font: 400 13px/1.35 Inter, sans-serif; color: #D9D1C4; }
+  .llm { position: absolute; left: 1230px; top: 232px; width: 146px; height: 206px; border-radius: 8px; text-align: center; padding-top: 42px;
+    border: 1px solid rgba(242,197,124,.55); background: linear-gradient(160deg, rgba(48,37,20,.9), rgba(12,10,8,.95));
+    box-shadow: 0 0 34px rgba(227,160,60,.18); transform: perspective(900px) rotateY(-14deg); }
+  .llm .ibox { margin: 0 auto 22px; border: 0; background: none; }
+  .llm b { display: block; font: 600 16px/1.2 Inter, sans-serif; color: #FFF; }
+  .llm small { display: block; margin-top: 8px; font: 400 13px/1 Inter, sans-serif; color: #BDB5A8; }
+
+  /* ---------- 3. Supply chain ---------- */
+  .supply { height: 610px; background:
+      radial-gradient(700px 200px at 720px 262px, rgba(227,160,60,.08), transparent 70%),
+      var(--bg); }
+  .supply h2 { top: 108px; font-size: 54px; }
+  .step { position: absolute; top: 290px; width: 216px; height: 280px; border-radius: 8px; padding: 58px 22px 0 22px;
+    border: 1px solid rgba(242,197,124,.16); background: linear-gradient(180deg, rgba(26,21,14,.9), rgba(10,9,7,.9)); }
+  .step-n { text-align: center; font: 600 18px/1 Manrope, sans-serif; color: var(--gold); }
+  .step-t { margin-top: 18px; min-height: 44px; font: 600 16px/1.35 Inter, sans-serif; color: #FFF; }
+  .step-d { margin-top: 12px; font: 400 14px/1.6 Inter, sans-serif; color: #B7AFA3; }
+  .step-ic { position: absolute; width: 32px; height: 32px; }
+
+  /* ---------- 4. Evidence ---------- */
+  .evid { height: 640px; background:
+      radial-gradient(520px 420px at 1000px 300px, rgba(227,160,60,.10), transparent 70%),
+      var(--bg); }
+  .evid h2 { top: 110px; font-size: 54px; }
+  .evid .copy { width: 690px; }
+  .ev-stage { position: absolute; left: 838px; top: 64px; width: 560px; height: 520px; perspective: 1400px; }
+  .ev-ghost, .ev-card { position: absolute; border-radius: 10px; transform: rotateY(-20deg) rotateZ(-2deg); transform-origin: 0 50%; }
+  .ev-ghost { width: 170px; border: 1px solid rgba(242,197,124,.35);
+    background: linear-gradient(160deg, rgba(60,48,32,.55), rgba(14,12,9,.7)); box-shadow: 0 0 20px rgba(0,0,0,.6); }
+  .ev-card { left: 0; top: 18px; width: 330px; height: 446px; padding: 42px 32px;
+    border: 1px solid rgba(242,197,124,.45); background: linear-gradient(160deg, rgba(52,42,28,.95), rgba(14,12,9,.97));
+    box-shadow: 0 30px 70px rgba(0,0,0,.7), 0 0 40px rgba(227,160,60,.12); }
+  .ev-card h3 { font: 600 21px/1 Inter, sans-serif; color: #FFF; margin-bottom: 30px; }
+  .ev-row { display: flex; align-items: center; gap: 18px; height: 48px; font: 400 15px/1 Inter, sans-serif; color: #E6DED1; }
+  .chk { width: 26px; height: 26px; flex: none; display: grid; place-items: center; border-radius: 5px;
+    background: linear-gradient(180deg, #FBD48A, #E0A03A); box-shadow: 0 0 10px rgba(242,197,124,.35); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= 160+ GUARDRAILS ================= -->
+  <section class="guard">
+    <svg class="deco" width="1440" height="680" viewBox="0 0 1440 680" fill="none">
+      <path d="M-40 470.0 C 177.0 659.0, 363.0 491.0, 580 680" stroke="rgba(242,197,124,0.040)" stroke-width="1"/><path d="M-40 474.0 C 177.0 656.5, 363.0 496.0, 580 675" stroke="rgba(242,197,124,0.054)" stroke-width="1"/><path d="M-40 478.0 C 177.0 654.0, 363.0 501.0, 580 670" stroke="rgba(242,197,124,0.068)" stroke-width="1"/><path d="M-40 482.0 C 177.0 651.5, 363.0 506.0, 580 665" stroke="rgba(242,197,124,0.082)" stroke-width="1"/><path d="M-40 486.0 C 177.0 649.0, 363.0 511.0, 580 660" stroke="rgba(242,197,124,0.096)" stroke-width="1"/><path d="M-40 490.0 C 177.0 646.5, 363.0 516.0, 580 655" stroke="rgba(242,197,124,0.110)" stroke-width="1"/><path d="M-40 494.0 C 177.0 644.0, 363.0 521.0, 580 650" stroke="rgba(242,197,124,0.124)" stroke-width="1"/><path d="M-40 498.0 C 177.0 641.5, 363.0 526.0, 580 645" stroke="rgba(242,197,124,0.138)" stroke-width="1"/><path d="M-40 502.0 C 177.0 639.0, 363.0 531.0, 580 640" stroke="rgba(242,197,124,0.152)" stroke-width="1"/><path d="M-40 506.0 C 177.0 636.5, 363.0 536.0, 580 635" stroke="rgba(242,197,124,0.166)" stroke-width="1"/><path d="M-40 510.0 C 177.0 634.0, 363.0 541.0, 580 630" stroke="rgba(242,197,124,0.180)" stroke-width="1"/><path d="M-40 514.0 C 177.0 631.5, 363.0 546.0, 580 625" stroke="rgba(242,197,124,0.194)" stroke-width="1"/><path d="M-40 518.0 C 177.0 629.0, 363.0 551.0, 580 620" stroke="rgba(242,197,124,0.208)" stroke-width="1"/><path d="M-40 522.0 C 177.0 626.5, 363.0 556.0, 580 615" stroke="rgba(242,197,124,0.222)" stroke-width="1"/>
+      <path d="M1080 110 C 1206.0 -2.0, 1332.0 96.0, 1500 -30.0" stroke="rgba(242,197,124,0.030)" stroke-width="1"/><path d="M1080 105 C 1206.0 3.0, 1332.0 93.5, 1500 -26.0" stroke="rgba(242,197,124,0.042)" stroke-width="1"/><path d="M1080 100 C 1206.0 8.0, 1332.0 91.0, 1500 -22.0" stroke="rgba(242,197,124,0.054)" stroke-width="1"/><path d="M1080 95 C 1206.0 13.0, 1332.0 88.5, 1500 -18.0" stroke="rgba(242,197,124,0.066)" stroke-width="1"/><path d="M1080 90 C 1206.0 18.0, 1332.0 86.0, 1500 -14.0" stroke="rgba(242,197,124,0.078)" stroke-width="1"/><path d="M1080 85 C 1206.0 23.0, 1332.0 83.5, 1500 -10.0" stroke="rgba(242,197,124,0.090)" stroke-width="1"/><path d="M1080 80 C 1206.0 28.0, 1332.0 81.0, 1500 -6.0" stroke="rgba(242,197,124,0.102)" stroke-width="1"/><path d="M1080 75 C 1206.0 33.0, 1332.0 78.5, 1500 -2.0" stroke="rgba(242,197,124,0.114)" stroke-width="1"/><path d="M1080 70 C 1206.0 38.0, 1332.0 76.0, 1500 2.0" stroke="rgba(242,197,124,0.126)" stroke-width="1"/><path d="M1080 65 C 1206.0 43.0, 1332.0 73.5, 1500 6.0" stroke="rgba(242,197,124,0.138)" stroke-width="1"/>
+      <circle cx="180" cy="586" r="2.4" fill="#F6CF8A" opacity="0.9"/><circle cx="262" cy="560" r="1.4" fill="#F6CF8A" opacity="0.7"/><circle cx="96" cy="610" r="1.2" fill="#F6CF8A" opacity="0.6"/><circle cx="1300" cy="40" r="1.6" fill="#F6CF8A" opacity="0.7"/><circle cx="1380" cy="90" r="1.2" fill="#F6CF8A" opacity="0.5"/><circle cx="1210" cy="24" r="1" fill="#F6CF8A" opacity="0.5"/>
+    </svg>
+
+    <div class="eyebrow" style="top:162px">Built on exchangeable</div>
+    <h2>160+ guardrails,<br><span class="gold">six families.</span></h2>
+    <p class="copy">Guardrails apply across the hierarchy — lower levels can tighten thresholds, but they can never weaken locked rules.</p>
+
+    <svg class="deco" width="1440" height="680" viewBox="0 0 1440 680" fill="none">
+      <defs>
+        <radialGradient id="hexF" cx=".5" cy=".45" r=".6">
+          <stop offset="0" stop-color="#2A1E0E"/><stop offset=".75" stop-color="#140F08"/><stop offset="1" stop-color="#5A3D14"/>
+        </radialGradient>
+        <linearGradient id="platF" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F2C57C" stop-opacity=".28"/><stop offset="1" stop-color="#2A1E0E" stop-opacity=".6"/>
+        </linearGradient>
+        <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <circle cx="982" cy="300" r="150" stroke="rgba(242,197,124,.10)"/>
+      <circle cx="982" cy="300" r="196" stroke="rgba(242,197,124,.06)" stroke-dasharray="2 6"/>
+      <path d="M902 222 C 875.0 222, 885.0 193.5, 848 193.5" stroke="rgba(242,197,124,.6)" stroke-width="1.3" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="848" cy="193.5" r="3" fill="#F2C57C"/><path d="M884 300 C 866.0 300, 876.0 360.5, 848 360.5" stroke="rgba(242,197,124,.6)" stroke-width="1.3" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="848" cy="360.5" r="3" fill="#F2C57C"/><path d="M902 378 C 875.0 378, 885.0 527.5, 848 527.5" stroke="rgba(242,197,124,.6)" stroke-width="1.3" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="848" cy="527.5" r="3" fill="#F2C57C"/><path d="M1062 222 C 1090.0 222, 1080.0 193.5, 1118 193.5" stroke="rgba(242,197,124,.6)" stroke-width="1.3" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="1118" cy="193.5" r="3" fill="#F2C57C"/><path d="M1080 300 C 1099.0 300, 1089.0 360.5, 1118 360.5" stroke="rgba(242,197,124,.6)" stroke-width="1.3" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="1118" cy="360.5" r="3" fill="#F2C57C"/><path d="M1062 378 C 1090.0 378, 1080.0 527.5, 1118 527.5" stroke="rgba(242,197,124,.6)" stroke-width="1.3" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="1118" cy="527.5" r="3" fill="#F2C57C"/>
+      <polygon points="982,410 1120,450 982,490 844,450" fill="url(#platF)" stroke="rgba(242,197,124,0.25)" stroke-width="1.2"/><polygon points="844,450 982,490 982,498 844,458" fill="rgba(242,197,124,.10)"/><polygon points="1120,450 982,490 982,498 1120,458" fill="rgba(242,197,124,.18)"/><polygon points="982,394 1114,432 982,470 850,432" fill="url(#platF)" stroke="rgba(242,197,124,0.45)" stroke-width="1.2"/><polygon points="850,432 982,470 982,478 850,440" fill="rgba(242,197,124,.10)"/><polygon points="1114,432 982,470 982,478 1114,440" fill="rgba(242,197,124,.18)"/><polygon points="982,378 1108,414 982,450 856,414" fill="url(#platF)" stroke="rgba(242,197,124,0.65)" stroke-width="1.2"/><polygon points="856,414 982,450 982,458 856,422" fill="rgba(242,197,124,.10)"/><polygon points="1108,414 982,450 982,458 1108,422" fill="rgba(242,197,124,.18)"/>
+      <polygon points="982.0,194.0 1073.8,247.0 1073.8,353.0 982.0,406.0 890.2,353.0 890.2,247.0" fill="url(#hexF)" stroke="#F6CF8A" stroke-width="3" stroke-linejoin="round" filter="url(#glow)"/>
+      <polygon points="982.0,206.0 1063.4,253.0 1063.4,347.0 982.0,394.0 900.6,347.0 900.6,253.0" fill="none" stroke="rgba(246,207,138,.25)" stroke-width="1"/>
+      <g transform="translate(965,228) scale(1.42)" fill="none" stroke="#F6CF8A" stroke-width="1.5" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></g>
+    </svg>
+    <div class="hex-label" style="top:288px;font:700 30px/1 Manrope, sans-serif;color:#FFF">160+</div>
+    <div class="hex-label" style="top:326px;font:600 12px/1 Inter, sans-serif;letter-spacing:.14em;color:#EDE3D1">GUARDRAILS</div>
+
+    
+    <div class="fam" style="left:565px;top:122px">
+      <div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+      <div class="fam-t">Safety</div>
+      <div class="fam-d">Toxicity blocking, bias detection, and harmful-content filtering on agent output.</div>
+    </div>
+    <div class="fam" style="left:565px;top:289px">
+      <div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg></div>
+      <div class="fam-t">Quality</div>
+      <div class="fam-d">Hallucination thresholds and faithfulness and coherence checks, enforced before delivery.</div>
+    </div>
+    <div class="fam" style="left:565px;top:456px">
+      <div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></div>
+      <div class="fam-t">Compliance</div>
+      <div class="fam-d">Policy enforcement logging with locked rules for critical alerts, reviewable by compliance officers.</div>
+    </div>
+    <div class="fam" style="left:1126px;top:122px">
+      <div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <div class="fam-t">Privacy</div>
+      <div class="fam-d">PII detection and masking — social security numbers, card data, personal data, custom patterns.</div>
+    </div>
+    <div class="fam" style="left:1126px;top:289px">
+      <div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="M12 7.5V12M12 12l-4.6 4.7M12 12l4.6 4.7"/></svg></div>
+      <div class="fam-t">Security</div>
+      <div class="fam-d">Prompt-injection defense and jailbreak prevention, scored on every interaction.</div>
+    </div>
+    <div class="fam" style="left:1126px;top:456px">
+      <div class="ibox"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg></div>
+      <div class="fam-t">Cost</div>
+      <div class="fam-d">Budget caps, token-explosion detection, and waste alerts at every level of the hierarchy.</div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ================= YOUR DATA ================= -->
+  <section class="env">
+    <svg class="deco" width="1440" height="640" viewBox="0 0 1440 640" fill="none">
+      <path d="M1060 560 C 1180.0 400.0, 1300.0 540.0, 1460 360.0" stroke="rgba(242,197,124,0.030)" stroke-width="1"/><path d="M1060 555 C 1180.0 405.0, 1300.0 537.5, 1460 364.0" stroke="rgba(242,197,124,0.042)" stroke-width="1"/><path d="M1060 550 C 1180.0 410.0, 1300.0 535.0, 1460 368.0" stroke="rgba(242,197,124,0.054)" stroke-width="1"/><path d="M1060 545 C 1180.0 415.0, 1300.0 532.5, 1460 372.0" stroke="rgba(242,197,124,0.066)" stroke-width="1"/><path d="M1060 540 C 1180.0 420.0, 1300.0 530.0, 1460 376.0" stroke="rgba(242,197,124,0.078)" stroke-width="1"/><path d="M1060 535 C 1180.0 425.0, 1300.0 527.5, 1460 380.0" stroke="rgba(242,197,124,0.090)" stroke-width="1"/><path d="M1060 530 C 1180.0 430.0, 1300.0 525.0, 1460 384.0" stroke="rgba(242,197,124,0.102)" stroke-width="1"/><path d="M1060 525 C 1180.0 435.0, 1300.0 522.5, 1460 388.0" stroke="rgba(242,197,124,0.114)" stroke-width="1"/><path d="M1060 520 C 1180.0 440.0, 1300.0 520.0, 1460 392.0" stroke="rgba(242,197,124,0.126)" stroke-width="1"/><path d="M1060 515 C 1180.0 445.0, 1300.0 517.5, 1460 396.0" stroke="rgba(242,197,124,0.138)" stroke-width="1"/><path d="M1060 510 C 1180.0 450.0, 1300.0 515.0, 1460 400.0" stroke="rgba(242,197,124,0.150)" stroke-width="1"/><path d="M1060 505 C 1180.0 455.0, 1300.0 512.5, 1460 404.0" stroke="rgba(242,197,124,0.162)" stroke-width="1"/>
+      <path d="M-40 560.0 C 204.99999999999997 641.0, 415.0 569.0, 660 650" stroke="rgba(242,197,124,0.030)" stroke-width="1"/><path d="M-40 564.0 C 204.99999999999997 638.5, 415.0 574.0, 660 645" stroke="rgba(242,197,124,0.040)" stroke-width="1"/><path d="M-40 568.0 C 204.99999999999997 636.0, 415.0 579.0, 660 640" stroke="rgba(242,197,124,0.050)" stroke-width="1"/><path d="M-40 572.0 C 204.99999999999997 633.5, 415.0 584.0, 660 635" stroke="rgba(242,197,124,0.060)" stroke-width="1"/><path d="M-40 576.0 C 204.99999999999997 631.0, 415.0 589.0, 660 630" stroke="rgba(242,197,124,0.070)" stroke-width="1"/><path d="M-40 580.0 C 204.99999999999997 628.5, 415.0 594.0, 660 625" stroke="rgba(242,197,124,0.080)" stroke-width="1"/><path d="M-40 584.0 C 204.99999999999997 626.0, 415.0 599.0, 660 620" stroke="rgba(242,197,124,0.090)" stroke-width="1"/><path d="M-40 588.0 C 204.99999999999997 623.5, 415.0 604.0, 660 615" stroke="rgba(242,197,124,0.100)" stroke-width="1"/>
+      <circle cx="1400" cy="420" r="1.4" fill="#F6CF8A" opacity="0.6"/><circle cx="1340" cy="500" r="1" fill="#F6CF8A" opacity="0.5"/>
+    </svg>
+
+    <div class="eyebrow" style="top:72px">Your data. Your environment.</div>
+    <h2>Your data never<br>leaves <span class="gold">your boundary.</span></h2>
+    <p class="copy" style="top:258px">Every service — studio, lifecycle manager, RAG, tools, observability, databases — runs inside your Kubernetes cluster, in your VPC, in your subscription. PhTNLAI has zero access to your production environment.</p>
+    <p class="copy" style="top:374px">The only traffic that leaves your boundary is the LLM call itself, and only if you choose a hosted model. Sensitive data is protected at seven enforcement points, from document upload through retrieval, model context, agent output, alerts, and audit logs.</p>
+    <a class="btn" style="left:82px;top:530px;width:236px">Learn more<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+
+    <div class="env-title">Your Environment</div>
+    <svg class="deco" width="1440" height="640" viewBox="0 0 1440 640" fill="none">
+      <defs>
+        <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#F2C57C" stop-opacity=".10"/><stop offset="1" stop-color="#F2C57C" stop-opacity=".02"/>
+        </linearGradient>
+        <filter id="glow2" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- glass box -->
+      <polygon points="742,150 800,130 1118,130 1060,150" fill="rgba(242,197,124,.06)" stroke="rgba(242,197,124,.35)"/>
+      <polygon points="1060,150 1118,130 1118,528 1060,548" fill="rgba(242,197,124,.05)" stroke="rgba(242,197,124,.35)"/>
+      <path d="M800 130 V528 H1118" stroke="rgba(242,197,124,.12)"/>
+      <path d="M742 548 L800 528" stroke="rgba(242,197,124,.12)"/>
+      <rect x="742" y="150" width="318" height="398" fill="url(#glass)" stroke="rgba(246,207,138,.75)" stroke-width="1.4" filter="url(#glow2)"/>
+      <!-- LLM arrow -->
+      <path d="M1082 344 H1212" stroke="#F2C57C" stroke-width="2" stroke-dasharray="5 6"/>
+      <path d="M1090 337 L1080 344 L1090 351" stroke="#F2C57C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M1204 337 L1214 344 L1204 351" stroke="#F2C57C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    
+      <div class="env-row" style="top:188px">
+        <div class="ibox sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg></div><span>Studio</span>
+      </div>
+      <div class="env-row" style="top:251px">
+        <div class="ibox sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="M12 7.5V12M12 12l-4.6 4.7M12 12l4.6 4.7"/></svg></div><span>Lifecycle Manager</span>
+      </div>
+      <div class="env-row" style="top:314px">
+        <div class="ibox sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h4v4H7zM13 7h4M13 11h4M7 15h10M7 18h6"/></svg></div><span>RAG Tools</span>
+      </div>
+      <div class="env-row" style="top:377px">
+        <div class="ibox sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg></div><span>Observability</span>
+      </div>
+      <div class="env-row" style="top:440px">
+        <div class="ibox sm"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="3" ry="4.5"/></svg></div><span>Databases</span>
+      </div>
+    <div class="llm-label">LLM call only<br>(your choice)</div>
+    <div class="llm"><div class="ibox"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#F6CF8A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><b>External LLM</b><small>(Hosted model)</small></div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ================= SUPPLY CHAIN ================= -->
+  <section class="supply">
+    <svg class="deco" width="1440" height="610" viewBox="0 0 1440 610" fill="none">
+      <path d="M960 150 C 1110.0 14.0, 1260.0 133.0, 1460 -20.0" stroke="rgba(242,197,124,0.030)" stroke-width="1"/><path d="M960 145 C 1110.0 19.0, 1260.0 130.5, 1460 -16.0" stroke="rgba(242,197,124,0.042)" stroke-width="1"/><path d="M960 140 C 1110.0 24.0, 1260.0 128.0, 1460 -12.0" stroke="rgba(242,197,124,0.054)" stroke-width="1"/><path d="M960 135 C 1110.0 29.0, 1260.0 125.5, 1460 -8.0" stroke="rgba(242,197,124,0.066)" stroke-width="1"/><path d="M960 130 C 1110.0 34.0, 1260.0 123.0, 1460 -4.0" stroke="rgba(242,197,124,0.078)" stroke-width="1"/><path d="M960 125 C 1110.0 39.0, 1260.0 120.5, 1460 0.0" stroke="rgba(242,197,124,0.090)" stroke-width="1"/><path d="M960 120 C 1110.0 44.0, 1260.0 118.0, 1460 4.0" stroke="rgba(242,197,124,0.102)" stroke-width="1"/><path d="M960 115 C 1110.0 49.0, 1260.0 115.5, 1460 8.0" stroke="rgba(242,197,124,0.114)" stroke-width="1"/><path d="M960 110 C 1110.0 54.0, 1260.0 113.0, 1460 12.0" stroke="rgba(242,197,124,0.126)" stroke-width="1"/><path d="M960 105 C 1110.0 59.0, 1260.0 110.5, 1460 16.0" stroke="rgba(242,197,124,0.138)" stroke-width="1"/><path d="M960 100 C 1110.0 64.0, 1260.0 108.0, 1460 20.0" stroke="rgba(242,197,124,0.150)" stroke-width="1"/><path d="M960 95 C 1110.0 69.0, 1260.0 105.5, 1460 24.0" stroke="rgba(242,197,124,0.162)" stroke-width="1"/>
+      <path d="M-40 560.0 C 492.0 614.0, 948.0 566.0, 1480 620" stroke="rgba(242,197,124,0.030)" stroke-width="1"/><path d="M-40 564.0 C 492.0 611.5, 948.0 571.0, 1480 615" stroke="rgba(242,197,124,0.042)" stroke-width="1"/><path d="M-40 568.0 C 492.0 609.0, 948.0 576.0, 1480 610" stroke="rgba(242,197,124,0.054)" stroke-width="1"/><path d="M-40 572.0 C 492.0 606.5, 948.0 581.0, 1480 605" stroke="rgba(242,197,124,0.066)" stroke-width="1"/><path d="M-40 576.0 C 492.0 604.0, 948.0 586.0, 1480 600" stroke="rgba(242,197,124,0.078)" stroke-width="1"/><path d="M-40 580.0 C 492.0 601.5, 948.0 591.0, 1480 595" stroke="rgba(242,197,124,0.090)" stroke-width="1"/><path d="M-40 584.0 C 492.0 599.0, 948.0 596.0, 1480 590" stroke="rgba(242,197,124,0.102)" stroke-width="1"/><path d="M-40 588.0 C 492.0 596.5, 948.0 601.0, 1480 585" stroke="rgba(242,197,124,0.114)" stroke-width="1"/><path d="M-40 592.0 C 492.0 594.0, 948.0 606.0, 1480 580" stroke="rgba(242,197,124,0.126)" stroke-width="1"/><path d="M-40 596.0 C 492.0 591.5, 948.0 611.0, 1480 575" stroke="rgba(242,197,124,0.138)" stroke-width="1"/>
+      <circle cx="1360" cy="560" r="1.6" fill="#F6CF8A" opacity="0.8"/><circle cx="1230" cy="590" r="1.2" fill="#F6CF8A" opacity="0.6"/><circle cx="150" cy="580" r="1.2" fill="#F6CF8A" opacity="0.5"/>
+    </svg>
+
+    <div class="eyebrow" style="top:72px">A hardened supply chain</div>
+    <h2>A hardened <span class="gold">software supply chain.</span></h2>
+
+    
+    <div class="step" style="left:49px">
+      <div class="step-n">01</div>
+      <div class="step-t">Static Analysis (SAST)</div>
+      <div class="step-d">Source, bytecode, and binaries scanned in the CI/CD pipeline for injection flaws, hardcoded secrets, and more.</div>
+    </div>
+    <div class="step" style="left:275px">
+      <div class="step-n">02</div>
+      <div class="step-t">Dynamic Testing (DAST)</div>
+      <div class="step-d">Real-world attack simulation against live platform instances.</div>
+    </div>
+    <div class="step" style="left:501px">
+      <div class="step-n">03</div>
+      <div class="step-t">Composition Analysis (SCA)</div>
+      <div class="step-d">Every third-party and open-source component scanned for known CVEs and supply-chain risk.</div>
+    </div>
+    <div class="step" style="left:727px">
+      <div class="step-n">04</div>
+      <div class="step-t">API &amp; Auth Testing</div>
+      <div class="step-d">OpenAPI-based security testing on all endpoints, plus authorization testing across every RBAC permission.</div>
+    </div>
+    <div class="step" style="left:953px">
+      <div class="step-n">05</div>
+      <div class="step-t">Red-Team &amp; Pentest</div>
+      <div class="step-d">Regular penetration tests, plus adversarial testing for prompt injection and jailbreaks. Reports under NDA.</div>
+    </div>
+    <div class="step" style="left:1179px">
+      <div class="step-n">06</div>
+      <div class="step-t">Runtime Defense</div>
+      <div class="step-d">Real-time monitoring through the AIOps pipeline, anomaly detection, and a kill switch when confidence drops.</div>
+    </div>
+    <svg class="deco" width="1440" height="610" viewBox="0 0 1440 610" fill="none">
+      <defs>
+        <radialGradient id="hexF" cx=".5" cy=".4" r=".65">
+          <stop offset="0" stop-color="#3A2A12"/><stop offset="1" stop-color="#120D07"/>
+        </radialGradient>
+        <linearGradient id="hexS" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FBE0A8"/><stop offset="1" stop-color="#D8962F"/>
+        </linearGradient>
+        <filter id="softglow" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <polygon points="157.0,212.0 200.3,237.0 200.3,287.0 157.0,312.0 113.7,287.0 113.7,237.0" fill="url(#hexF)" stroke="url(#hexS)" stroke-width="1.6" stroke-linejoin="round" filter="url(#softglow)"/><circle cx="209.0" cy="262" r="2.6" fill="#F2C57C"/><path d="M217.0 262 L323.0 262" stroke="rgba(242,197,124,.7)" stroke-width="1.4" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="331.0" cy="262" r="2.6" fill="#F2C57C"/><polygon points="383.0,212.0 426.3,237.0 426.3,287.0 383.0,312.0 339.7,287.0 339.7,237.0" fill="url(#hexF)" stroke="url(#hexS)" stroke-width="1.6" stroke-linejoin="round" filter="url(#softglow)"/><circle cx="435.0" cy="262" r="2.6" fill="#F2C57C"/><path d="M443.0 262 L549.0 262" stroke="rgba(242,197,124,.7)" stroke-width="1.4" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="557.0" cy="262" r="2.6" fill="#F2C57C"/><polygon points="609.0,212.0 652.3,237.0 652.3,287.0 609.0,312.0 565.7,287.0 565.7,237.0" fill="url(#hexF)" stroke="url(#hexS)" stroke-width="1.6" stroke-linejoin="round" filter="url(#softglow)"/><circle cx="661.0" cy="262" r="2.6" fill="#F2C57C"/><path d="M669.0 262 L775.0 262" stroke="rgba(242,197,124,.7)" stroke-width="1.4" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="783.0" cy="262" r="2.6" fill="#F2C57C"/><polygon points="835.0,212.0 878.3,237.0 878.3,287.0 835.0,312.0 791.7,287.0 791.7,237.0" fill="url(#hexF)" stroke="url(#hexS)" stroke-width="1.6" stroke-linejoin="round" filter="url(#softglow)"/><circle cx="887.0" cy="262" r="2.6" fill="#F2C57C"/><path d="M895.0 262 L1001.0 262" stroke="rgba(242,197,124,.7)" stroke-width="1.4" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="1009.0" cy="262" r="2.6" fill="#F2C57C"/><polygon points="1061.0,212.0 1104.3,237.0 1104.3,287.0 1061.0,312.0 1017.7,287.0 1017.7,237.0" fill="url(#hexF)" stroke="url(#hexS)" stroke-width="1.6" stroke-linejoin="round" filter="url(#softglow)"/><circle cx="1113.0" cy="262" r="2.6" fill="#F2C57C"/><path d="M1121.0 262 L1227.0 262" stroke="rgba(242,197,124,.7)" stroke-width="1.4" stroke-dasharray="1.5 5" stroke-linecap="round"/><circle cx="1235.0" cy="262" r="2.6" fill="#F2C57C"/><polygon points="1287.0,212.0 1330.3,237.0 1330.3,287.0 1287.0,312.0 1243.7,287.0 1243.7,237.0" fill="url(#hexF)" stroke="url(#hexS)" stroke-width="1.6" stroke-linejoin="round" filter="url(#softglow)"/>
+    </svg>
+    
+    <div class="step-ic" style="left:141.0px;top:246px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"/><path d="m6 8-4 4 4 4"/><path d="m14.5 4-5 16"/></svg></div>
+    <div class="step-ic" style="left:367.0px;top:246px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+    <div class="step-ic" style="left:593.0px;top:246px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
+    <div class="step-ic" style="left:819.0px;top:246px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+    <div class="step-ic" style="left:1045.0px;top:246px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <div class="step-ic" style="left:1271.0px;top:246px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ================= EVIDENCE ================= -->
+  <section class="evid">
+    <svg class="deco" width="1440" height="640" viewBox="0 0 1440 640" fill="none">
+      <path d="M-40 520.0 C 211.99999999999997 646.0, 428.0 534.0, 680 660" stroke="rgba(242,197,124,0.030)" stroke-width="1"/><path d="M-40 524.0 C 211.99999999999997 643.5, 428.0 539.0, 680 655" stroke="rgba(242,197,124,0.042)" stroke-width="1"/><path d="M-40 528.0 C 211.99999999999997 641.0, 428.0 544.0, 680 650" stroke="rgba(242,197,124,0.054)" stroke-width="1"/><path d="M-40 532.0 C 211.99999999999997 638.5, 428.0 549.0, 680 645" stroke="rgba(242,197,124,0.066)" stroke-width="1"/><path d="M-40 536.0 C 211.99999999999997 636.0, 428.0 554.0, 680 640" stroke="rgba(242,197,124,0.078)" stroke-width="1"/><path d="M-40 540.0 C 211.99999999999997 633.5, 428.0 559.0, 680 635" stroke="rgba(242,197,124,0.090)" stroke-width="1"/><path d="M-40 544.0 C 211.99999999999997 631.0, 428.0 564.0, 680 630" stroke="rgba(242,197,124,0.102)" stroke-width="1"/><path d="M-40 548.0 C 211.99999999999997 628.5, 428.0 569.0, 680 625" stroke="rgba(242,197,124,0.114)" stroke-width="1"/><path d="M-40 552.0 C 211.99999999999997 626.0, 428.0 574.0, 680 620" stroke="rgba(242,197,124,0.126)" stroke-width="1"/><path d="M-40 556.0 C 211.99999999999997 623.5, 428.0 579.0, 680 615" stroke="rgba(242,197,124,0.138)" stroke-width="1"/><path d="M-40 560.0 C 211.99999999999997 621.0, 428.0 584.0, 680 610" stroke="rgba(242,197,124,0.150)" stroke-width="1"/><path d="M-40 564.0 C 211.99999999999997 618.5, 428.0 589.0, 680 605" stroke="rgba(242,197,124,0.162)" stroke-width="1"/>
+      <path d="M1100 620 C 1214.0 444.0, 1328.0 598.0, 1480 400.0" stroke="rgba(242,197,124,0.030)" stroke-width="1"/><path d="M1100 615 C 1214.0 449.0, 1328.0 595.5, 1480 404.0" stroke="rgba(242,197,124,0.042)" stroke-width="1"/><path d="M1100 610 C 1214.0 454.0, 1328.0 593.0, 1480 408.0" stroke="rgba(242,197,124,0.054)" stroke-width="1"/><path d="M1100 605 C 1214.0 459.0, 1328.0 590.5, 1480 412.0" stroke="rgba(242,197,124,0.066)" stroke-width="1"/><path d="M1100 600 C 1214.0 464.0, 1328.0 588.0, 1480 416.0" stroke="rgba(242,197,124,0.078)" stroke-width="1"/><path d="M1100 595 C 1214.0 469.0, 1328.0 585.5, 1480 420.0" stroke="rgba(242,197,124,0.090)" stroke-width="1"/><path d="M1100 590 C 1214.0 474.0, 1328.0 583.0, 1480 424.0" stroke="rgba(242,197,124,0.102)" stroke-width="1"/><path d="M1100 585 C 1214.0 479.0, 1328.0 580.5, 1480 428.0" stroke="rgba(242,197,124,0.114)" stroke-width="1"/><path d="M1100 580 C 1214.0 484.0, 1328.0 578.0, 1480 432.0" stroke="rgba(242,197,124,0.126)" stroke-width="1"/><path d="M1100 575 C 1214.0 489.0, 1328.0 575.5, 1480 436.0" stroke="rgba(242,197,124,0.138)" stroke-width="1"/>
+      <circle cx="210" cy="600" r="1.6" fill="#F6CF8A" opacity="0.7"/><circle cx="420" cy="560" r="1.2" fill="#F6CF8A" opacity="0.5"/><circle cx="1380" cy="520" r="1.4" fill="#F6CF8A" opacity="0.6"/>
+    </svg>
+
+    <div class="eyebrow" style="top:72px">Audit-ready by design</div>
+    <h2>Evidence, <span class="gold">not assurances.</span></h2>
+    <p class="copy" style="top:192px">Security evidence packages — penetration test reports, per-image SBOM, red-team results, remediation history, incident-response procedures, and an exportable role-permission matrix — are provided to your cybersecurity team under NDA.</p>
+    <p class="copy" style="top:314px">Platform controls align to SOC 2, HIPAA, GDPR, and PCI-DSS requirements, with compliance-officer and read-only auditor roles built into the platform’s access model.</p>
+    <a class="btn" style="left:82px;top:440px;width:412px">View compliance controls<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+
+    <div class="ev-stage">
+      <div class="ev-ghost" style="left:372px;top:150px;height:310px;opacity:0.28"></div><div class="ev-ghost" style="left:330px;top:118px;height:360px;opacity:0.4"></div><div class="ev-ghost" style="left:282px;top:86px;height:400px;opacity:0.55"></div><div class="ev-ghost" style="left:228px;top:52px;height:440px;opacity:0.75"></div>
+      <div class="ev-card">
+        <h3>Security Evidence</h3>
+          <div class="ev-row"><div class="chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span>Penetration test reports</span></div>
+          <div class="ev-row"><div class="chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span>SBOM per image</span></div>
+          <div class="ev-row"><div class="chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span>Red-team results</span></div>
+          <div class="ev-row"><div class="chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span>Remediation history</span></div>
+          <div class="ev-row"><div class="chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span>Incident response procedures</span></div>
+          <div class="ev-row"><div class="chk"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1A1206" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div><span>Role-permission matrix</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
