@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Platform Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050404;
+    --gold: #F2C57C;
+    --gold-2: #E3A955;
+    --gold-dim: #B8935A;
+    --line: rgba(242,197,124,.22);
+    --text: #F4EFE7;
+    --muted: #B9B1A5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .page { width: 1440px; margin: 0 auto; background: var(--bg); overflow: hidden; }
+  section { position: relative; width: 1440px; }
+
+  .eyebrow { position: absolute; left: 80px; display: flex; align-items: center; gap: 22px; font: 500 13px/1 Inter, sans-serif; letter-spacing: .34em; color: var(--gold-dim); text-transform: uppercase; }
+  .eyebrow::after { content: ""; width: 52px; height: 1px; background: rgba(242,197,124,.45); }
+  h2 { position: absolute; left: 80px; font-family: Manrope, sans-serif; font-weight: 700; letter-spacing: -0.035em; color: #FFFFFF; }
+  .gold { background: linear-gradient(180deg, #F9DDA6 0%, #E7B464 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { position: absolute; left: 80px; font-size: 20px; line-height: 1.5; color: var(--muted); }
+
+  /* ---------- Section 1 ---------- */
+  .arch { height: 1030px; background:
+      radial-gradient(640px 420px at 1300px 0px, rgba(227,169,85,.16), transparent 70%),
+      radial-gradient(420px 360px at 360px 620px, rgba(227,169,85,.10), transparent 70%),
+      var(--bg); }
+  .arch h2 { top: 86px; font-size: 72px; line-height: 1.05; }
+  .arch .lede { top: 176px; width: 930px; }
+  .layer-label { position: absolute; left: 88px; font: 500 12px/1.75 Inter, sans-serif; letter-spacing: .3em; color: var(--gold-dim); text-transform: uppercase; }
+  .layer-line { position: absolute; left: 124px; width: 1px; background: linear-gradient(180deg, rgba(242,197,124,.7), rgba(242,197,124,.1)); }
+  .layer-line::before { content: ""; position: absolute; top: -2px; left: -2px; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+  .mod { position: absolute; left: 598px; width: 790px; height: 80px; display: flex; align-items: center;
+    border: 1px solid rgba(242,197,124,.18); border-radius: 6px;
+    background: linear-gradient(90deg, rgba(28,22,14,.92), rgba(12,10,8,.92)); }
+  .mod-icon { width: 50px; height: 50px; margin-left: 16px; flex: none; display: grid; place-items: center; border-radius: 8px;
+    border: 1px solid rgba(242,197,124,.45); background: radial-gradient(circle at 50% 30%, rgba(242,197,124,.14), rgba(0,0,0,.2)); }
+  .mod-title { width: 222px; margin-left: 22px; flex: none; font: 600 18px/1.3 Inter, sans-serif; color: #FFFFFF; }
+  .mod-div { width: 1px; height: 38px; flex: none; background: rgba(242,197,124,.28); }
+  .mod-desc { width: 392px; margin-left: 24px; flex: none; font: 400 15px/1.5 Inter, sans-serif; color: var(--muted); }
+  .mod-num { margin-left: auto; margin-right: 28px; font: 500 13px/1 Inter, sans-serif; letter-spacing: .12em; color: var(--gold-dim); }
+
+  .divider { height: 1px; width: 1440px; background: linear-gradient(90deg, rgba(242,197,124,0), rgba(242,197,124,.55) 30%, rgba(242,197,124,.55) 70%, rgba(242,197,124,0)); }
+
+  /* ---------- Section 2 ---------- */
+  .obs { height: 790px; overflow: hidden; background:
+      radial-gradient(700px 420px at 1180px 200px, rgba(227,169,85,.10), transparent 70%),
+      var(--bg); }
+  .obs h2 { top: 102px; font-size: 68px; line-height: 1.04; width: 820px; }
+  .obs .lede { top: 262px; width: 770px; font-size: 17px; line-height: 1.52; color: #CFC8BC; }
+
+  .dash-wrap { position: absolute; left: 905px; top: 48px; width: 600px; height: 320px; perspective: 1500px; }
+  .dash { position: absolute; inset: 0; transform: rotateY(-26deg) rotateX(10deg) rotateZ(-4deg); transform-origin: 0 50%;
+    border-radius: 14px; border: 1px solid rgba(242,197,124,.14);
+    background: linear-gradient(160deg, rgba(34,27,18,.9), rgba(10,9,7,.95));
+    box-shadow: 0 40px 80px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.04); padding: 24px 24px; }
+  .dash-ghost { position: absolute; left: -60px; top: 30px; width: 120px; height: 250px; border-radius: 12px; border: 1px solid rgba(242,197,124,.06);
+    background: linear-gradient(160deg, rgba(30,24,16,.5), rgba(10,9,7,.2)); transform: rotateY(-26deg) rotateZ(-4deg); }
+  .tabs { display: flex; gap: 14px; margin-bottom: 22px; }
+  .tab { padding: 10px 26px; border-radius: 8px; font: italic 500 13px/1 Inter, sans-serif; color: #9E968A; border: 1px solid rgba(255,255,255,.06); background: rgba(255,255,255,.02); }
+  .tab.on { color: #F9DDA6; border-color: rgba(242,197,124,.6); background: linear-gradient(180deg, rgba(242,197,124,.28), rgba(242,197,124,.08)); box-shadow: 0 0 18px rgba(242,197,124,.25); }
+  .kpis { display: flex; gap: 16px; }
+  .kpi { width: 170px; height: 215px; border-radius: 10px; padding: 18px 16px; border: 1px solid rgba(242,197,124,.14);
+    background: linear-gradient(180deg, rgba(40,32,22,.7), rgba(14,12,9,.8)); }
+  .kpi-l { font: italic 400 11px/1 Inter, sans-serif; color: #BDB4A6; }
+  .kpi-v { margin-top: 12px; display: flex; align-items: baseline; gap: 14px; font: italic 600 22px/1 Inter, sans-serif; color: #FFF; }
+  .kpi-v span { font: italic 500 10px/1 Inter, sans-serif; color: #7BD88F; }
+  .kpi svg { margin-top: 18px; display: block; }
+
+  .pillar { position: absolute; top: 416px; height: 300px; border-radius: 8px; overflow: hidden;
+    border: 1px solid rgba(242,197,124,.42);
+    background: linear-gradient(160deg, rgba(38,29,17,.85) 0%, rgba(12,10,8,.95) 55%, rgba(8,7,6,1) 100%);
+    box-shadow: inset 0 0 40px rgba(242,197,124,.05), 0 0 30px rgba(227,169,85,.06); }
+  .pillar-head { position: absolute; top: 26px; left: 32px; display: flex; align-items: center; gap: 20px; }
+  .pillar-icon { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 9px;
+    border: 1px solid rgba(242,197,124,.5); background: radial-gradient(circle at 50% 30%, rgba(242,197,124,.18), rgba(0,0,0,.2)); }
+  .pillar-title { font: 700 15px/1 Manrope, sans-serif; letter-spacing: .3em; color: var(--gold); }
+  .pillar p { position: absolute; top: 100px; left: 32px; width: 330px; font: 400 17.5px/1.58 Inter, sans-serif; color: #DCD4C8; }
+  .pillar-btn { position: absolute; left: 32px; bottom: 30px; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center;
+    border: 1px solid rgba(242,197,124,.6); }
+  .pillar-deco { position: absolute; pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= PLATFORM ARCHITECTURE ================= -->
+  <section class="arch">
+    <!-- background arcs -->
+    <svg class="pillar-deco" style="left:0;top:0" width="1440" height="1030" viewBox="0 0 1440 1030" fill="none">
+      <path d="M1040 0 C1180 120 1320 150 1440 140" stroke="rgba(242,197,124,.18)"/>
+      <path d="M1140 0 C1230 90 1330 110 1440 100" stroke="rgba(242,197,124,.28)"/>
+      <path d="M1280 0 C1300 60 1360 120 1440 150" stroke="rgba(242,197,124,.12)"/>
+      <path d="M1440 180 C1360 200 1300 250 1270 330" stroke="rgba(242,197,124,.10)"/>
+      <circle cx="1268" cy="176" r="3" fill="#E3A955"/>
+      <circle cx="1392" cy="118" r="1.6" fill="#E3A955" opacity=".7"/>
+      <circle cx="84" cy="815" r="2" fill="#E3A955" opacity=".7"/>
+      <path d="M0 835 L300 790" stroke="rgba(242,197,124,.08)"/>
+      <path d="M0 980 L1440 980" stroke="rgba(242,197,124,.04)"/>
+    </svg>
+
+    <div class="eyebrow" style="top:56px">Platform Architecture</div>
+    <h2>Modular <span class="gold">by design</span></h2>
+    <p class="lede">A microservices-based platform whose modules you can adopt together or independently — all observable through unified FinOps, TechOps, and AIOps dashboards.</p>
+
+    <div class="layer-label" style="top:318px">Agents<br>&amp; Apps</div>
+    <div class="layer-line" style="top:392px;height:70px"></div>
+    <div class="layer-label" style="top:484px">Services<br>&amp; Runtime</div>
+    <div class="layer-line" style="top:560px;height:70px"></div>
+    <div class="layer-label" style="top:652px">Data &amp;<br>Knowledge</div>
+    <div class="layer-line" style="top:728px;height:120px"></div>
+    <div class="layer-label" style="top:872px">Platform<br>Foundation</div>
+
+    <!-- layer stack + connectors -->
+    <svg class="pillar-deco" style="left:0;top:0" width="1440" height="1030" viewBox="0 0 1440 1030" fill="none">
+      <defs>
+        <linearGradient id="top" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F2C57C" stop-opacity=".22"/>
+          <stop offset="1" stop-color="#1A140C" stop-opacity=".78"/>
+        </linearGradient>
+        <linearGradient id="topHot" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#F7D59A" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#5A4020" stop-opacity=".85"/>
+        </linearGradient>
+        <linearGradient id="sideL" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#F2C57C" stop-opacity=".10"/>
+          <stop offset="1" stop-color="#F2C57C" stop-opacity=".28"/>
+        </linearGradient>
+        <linearGradient id="sideR" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#F2C57C" stop-opacity=".28"/>
+          <stop offset="1" stop-color="#F2C57C" stop-opacity=".08"/>
+        </linearGradient>
+        <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#FBE3B4"/>
+          <stop offset=".5" stop-color="#E3A955" stop-opacity=".7"/>
+          <stop offset="1" stop-color="#F2C57C" stop-opacity=".35"/>
+        </linearGradient>
+        <filter id="glow" x="-30%" y="-60%" width="160%" height="220%">
+          <feGaussianBlur stdDeviation="6" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="iconGlow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="1.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- left bracket -->
+      <path d="M200 330 L200 902" stroke="rgba(242,197,124,.4)" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+      <path d="M200 330 L238 330" stroke="rgba(242,197,124,.4)" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+      <path d="M200 902 L236 902" stroke="rgba(242,197,124,.4)" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+
+      
+    <circle cx="494.0" cy="302" r="2.2" fill="#F2C57C"/>
+    <path d="M500.0 302 L528.0 302 L560 302.0 L584 302.0" fill="none" stroke="rgba(242,197,124,.55)" stroke-width="1.2" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+    <circle cx="586" cy="302.0" r="3" fill="#F2C57C"/>
+    <circle cx="494.0" cy="386" r="2.2" fill="#F2C57C"/>
+    <path d="M500.0 386 L528.0 386 L560 392.0 L584 392.0" fill="none" stroke="rgba(242,197,124,.55)" stroke-width="1.2" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+    <circle cx="586" cy="392.0" r="3" fill="#F2C57C"/>
+    <circle cx="494.0" cy="470" r="2.2" fill="#F2C57C"/>
+    <path d="M500.0 470 L528.0 470 L560 482.0 L584 482.0" fill="none" stroke="rgba(242,197,124,.55)" stroke-width="1.2" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+    <circle cx="586" cy="482.0" r="3" fill="#F2C57C"/>
+    <circle cx="494.0" cy="554" r="2.2" fill="#F2C57C"/>
+    <path d="M500.0 554 L528.0 554 L560 572.0 L584 572.0" fill="none" stroke="rgba(242,197,124,.55)" stroke-width="1.2" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+    <circle cx="586" cy="572.0" r="3" fill="#F2C57C"/>
+    <circle cx="494.0" cy="638" r="2.2" fill="#F2C57C"/>
+    <path d="M500.0 638 L528.0 638 L560 662.0 L584 662.0" fill="none" stroke="rgba(242,197,124,.55)" stroke-width="1.2" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+    <circle cx="586" cy="662.0" r="3" fill="#F2C57C"/>
+    <circle cx="494.0" cy="722" r="2.2" fill="#F2C57C"/>
+    <path d="M500.0 722 L528.0 722 L560 752.0 L584 752.0" fill="none" stroke="rgba(242,197,124,.55)" stroke-width="1.2" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+    <circle cx="586" cy="752.0" r="3" fill="#F2C57C"/>
+    <circle cx="494.0" cy="806" r="2.2" fill="#F2C57C"/>
+    <path d="M500.0 806 L528.0 806 L560 842.0 L584 842.0" fill="none" stroke="rgba(242,197,124,.55)" stroke-width="1.2" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+    <circle cx="586" cy="842.0" r="3" fill="#F2C57C"/>
+    <circle cx="505.6" cy="890" r="2.2" fill="#F2C57C"/>
+    <path d="M511.6 890 L539.6 890 L560 932.0 L584 932.0" fill="none" stroke="rgba(242,197,124,.55)" stroke-width="1.2" stroke-dasharray="1.5 4" stroke-linecap="round"/>
+    <circle cx="586" cy="932.0" r="3" fill="#F2C57C"/>
+      
+    <g>
+      <polygon points="244.39999999999998,890 372,951.6 372,962.6 244.39999999999998,901" fill="url(#sideL)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="499.6,890 372,951.6 372,962.6 499.6,901" fill="url(#sideR)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="372,828.4 499.6,890 372,951.6 244.39999999999998,890" fill="url(#top)" stroke="url(#edge)" stroke-width="1.2"/>
+      <polygon points="372,835.4 485.6,890 372,944.6 258.4,890" fill="none" stroke="rgba(242,197,124,.12)" stroke-width="1"/>
+      <g transform="translate(356,874) scale(1.333)" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></g>
+    </g>
+    <g>
+      <polygon points="256.0,806 372,862.0 372,873.0 256.0,817" fill="url(#sideL)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="488.0,806 372,862.0 372,873.0 488.0,817" fill="url(#sideR)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="372,750.0 488.0,806 372,862.0 256.0,806" fill="url(#top)" stroke="url(#edge)" stroke-width="1.2"/>
+      <polygon points="372,757.0 474.0,806 372,855.0 270.0,806" fill="none" stroke="rgba(242,197,124,.12)" stroke-width="1"/>
+      <g transform="translate(356,790) scale(1.333)" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20v-7M12 20V5M18 20v-10"/></g>
+    </g>
+    <g>
+      <polygon points="256.0,722 372,778.0 372,789.0 256.0,733" fill="url(#sideL)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="488.0,722 372,778.0 372,789.0 488.0,733" fill="url(#sideR)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="372,666.0 488.0,722 372,778.0 256.0,722" fill="url(#top)" stroke="url(#edge)" stroke-width="1.2"/>
+      <polygon points="372,673.0 474.0,722 372,771.0 270.0,722" fill="none" stroke="rgba(242,197,124,.12)" stroke-width="1"/>
+      <g transform="translate(356,706) scale(1.333)" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></g>
+    </g>
+    <g>
+      <polygon points="256.0,638 372,694.0 372,705.0 256.0,649" fill="url(#sideL)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="488.0,638 372,694.0 372,705.0 488.0,649" fill="url(#sideR)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="372,582.0 488.0,638 372,694.0 256.0,638" fill="url(#top)" stroke="url(#edge)" stroke-width="1.2"/>
+      <polygon points="372,589.0 474.0,638 372,687.0 270.0,638" fill="none" stroke="rgba(242,197,124,.12)" stroke-width="1"/>
+      <g transform="translate(356,622) scale(1.333)" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="M12 7.5V12M12 12l-4.6 4.7M12 12l4.6 4.7"/></g>
+    </g>
+    <g>
+      <polygon points="256.0,554 372,610.0 372,621.0 256.0,565" fill="url(#sideL)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="488.0,554 372,610.0 372,621.0 488.0,565" fill="url(#sideR)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="372,498.0 488.0,554 372,610.0 256.0,554" fill="url(#top)" stroke="url(#edge)" stroke-width="1.2"/>
+      <polygon points="372,505.0 474.0,554 372,603.0 270.0,554" fill="none" stroke="rgba(242,197,124,.12)" stroke-width="1"/>
+      <g transform="translate(356,538) scale(1.333)" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></g>
+    </g>
+    <g>
+      <polygon points="256.0,470 372,526.0 372,537.0 256.0,481" fill="url(#sideL)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="488.0,470 372,526.0 372,537.0 488.0,481" fill="url(#sideR)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="372,414.0 488.0,470 372,526.0 256.0,470" fill="url(#top)" stroke="url(#edge)" stroke-width="1.2"/>
+      <polygon points="372,421.0 474.0,470 372,519.0 270.0,470" fill="none" stroke="rgba(242,197,124,.12)" stroke-width="1"/>
+      <g transform="translate(356,454) scale(1.333)" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></g>
+    </g>
+    <g>
+      <polygon points="256.0,386 372,442.0 372,453.0 256.0,397" fill="url(#sideL)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="488.0,386 372,442.0 372,453.0 488.0,397" fill="url(#sideR)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="372,330.0 488.0,386 372,442.0 256.0,386" fill="url(#top)" stroke="url(#edge)" stroke-width="1.2"/>
+      <polygon points="372,337.0 474.0,386 372,435.0 270.0,386" fill="none" stroke="rgba(242,197,124,.12)" stroke-width="1"/>
+      <g transform="translate(356,370) scale(1.333)" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></g>
+    </g>
+    <g>
+      <polygon points="256.0,302 372,358.0 372,369.0 256.0,313" fill="url(#sideL)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="488.0,302 372,358.0 372,369.0 488.0,313" fill="url(#sideR)" stroke="rgba(242,197,124,.35)" stroke-width="1"/>
+      <polygon points="372,246.0 488.0,302 372,358.0 256.0,302" fill="url(#topHot)" stroke="url(#edge)" stroke-width="1.6" filter="url(#glow)"/>
+      <polygon points="372,253.0 474.0,302 372,351.0 270.0,302" fill="none" stroke="rgba(242,197,124,.12)" stroke-width="1"/>
+      <g transform="translate(356,286) scale(1.333)" fill="none" stroke="#F4CB86" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#iconGlow)"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></g>
+    </g>
+    </svg>
+
+    
+    <div class="mod" style="top:262px">
+      <div class="mod-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div>
+      <div class="mod-title">Agent Studio</div>
+      <div class="mod-div"></div>
+      <div class="mod-desc">Visual and conversational orchestration designer with execution groups</div>
+      <div class="mod-num">01</div>
+    </div>
+    <div class="mod" style="top:352px">
+      <div class="mod-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M13 8H7"/><path d="M17 12H7"/></svg></div>
+      <div class="mod-title">Agent Lifecycle Manager</div>
+      <div class="mod-div"></div>
+      <div class="mod-desc">Agent creation and versioning, orchestration schema, and the Ask AI conversational build service</div>
+      <div class="mod-num">02</div>
+    </div>
+    <div class="mod" style="top:442px">
+      <div class="mod-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></div>
+      <div class="mod-title">Middleware Core</div>
+      <div class="mod-div"></div>
+      <div class="mod-desc">API gateway, RBAC enforcement, tenant resolution, and identity federation</div>
+      <div class="mod-num">03</div>
+    </div>
+    <div class="mod" style="top:532px">
+      <div class="mod-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></div>
+      <div class="mod-title">RAG Service</div>
+      <div class="mod-div"></div>
+      <div class="mod-desc">Knowledge base management, document processing, and vector indexing with five pre-built pipeline templates</div>
+      <div class="mod-num">04</div>
+    </div>
+    <div class="mod" style="top:622px">
+      <div class="mod-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="M12 7.5V12M12 12l-4.6 4.7M12 12l4.6 4.7"/></svg></div>
+      <div class="mod-title">Super-Agent Framework</div>
+      <div class="mod-div"></div>
+      <div class="mod-desc">Multi-agent orchestration runtime driven by a complete, exportable orchestration schema</div>
+      <div class="mod-num">05</div>
+    </div>
+    <div class="mod" style="top:712px">
+      <div class="mod-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></div>
+      <div class="mod-title">Sub-Agent Framework</div>
+      <div class="mod-div"></div>
+      <div class="mod-desc">Individual agent runtime for catalog and custom agents alike</div>
+      <div class="mod-num">06</div>
+    </div>
+    <div class="mod" style="top:802px">
+      <div class="mod-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20v-7M12 20V5M18 20v-10"/></svg></div>
+      <div class="mod-title">Observability Platform</div>
+      <div class="mod-div"></div>
+      <div class="mod-desc">FinOps, TechOps, and AIOps dashboards over shared, OpenTelemetry-native telemetry</div>
+      <div class="mod-num">07</div>
+    </div>
+    <div class="mod" style="top:892px">
+      <div class="mod-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div class="mod-title">Release Management</div>
+      <div class="mod-div"></div>
+      <div class="mod-desc">Versioned, auditable database and platform release management</div>
+      <div class="mod-num">08</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ================= OBSERVABILITY ================= -->
+  <section class="obs">
+    <div class="eyebrow" style="top:62px">Observability</div>
+    <h2>See cost, performance,<br>and quality <span class="gold">in one glass</span></h2>
+    <p class="lede">Triple-pillar observability turns every agent interaction into telemetry your finance, operations, and risk teams can act on. A Panel of Judges — three to five independent evaluators — scores every interaction in real time across 25+ metrics, from hallucination and faithfulness to prompt-injection detection. Low confidence triggers a retry, a human review, or a kill switch.</p>
+
+    <!-- dashboard mock -->
+    <div class="dash-wrap">
+      <div class="dash-ghost"></div>
+      <div class="dash">
+        <div class="tabs">
+          <div class="tab on">FinOps</div>
+          <div class="tab">TechOps</div>
+          <div class="tab">AIOps</div>
+        </div>
+        <div class="kpis">
+          <div class="kpi">
+            <div class="kpi-l">Total Cost</div>
+            <div class="kpi-v">$12,430 <span>↓ 12%</span></div>
+            <svg width="140" height="118" viewBox="0 0 190 120">
+              <defs><linearGradient id="barG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F9DDA6"/><stop offset="1" stop-color="#B7802F" stop-opacity=".5"/></linearGradient></defs>
+              <line x1="0" x2="190" y1="10" y2="10" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="32" y2="32" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="54" y2="54" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="76" y2="76" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="98" y2="98" stroke="rgba(255,255,255,.06)"/><rect x="8" y="82" width="8" height="18" rx="1.5" fill="url(#barG)"/><rect x="23" y="66" width="8" height="34" rx="1.5" fill="url(#barG)"/><rect x="38" y="74" width="8" height="26" rx="1.5" fill="url(#barG)"/><rect x="53" y="52" width="8" height="48" rx="1.5" fill="url(#barG)"/><rect x="68" y="60" width="8" height="40" rx="1.5" fill="url(#barG)"/><rect x="83" y="38" width="8" height="62" rx="1.5" fill="url(#barG)"/><rect x="98" y="45" width="8" height="55" rx="1.5" fill="url(#barG)"/><rect x="113" y="22" width="8" height="78" rx="1.5" fill="url(#barG)"/><rect x="128" y="30" width="8" height="70" rx="1.5" fill="url(#barG)"/><rect x="143" y="8" width="8" height="92" rx="1.5" fill="url(#barG)"/><rect x="158" y="16" width="8" height="84" rx="1.5" fill="url(#barG)"/><rect x="173" y="40" width="8" height="60" rx="1.5" fill="url(#barG)"/>
+            </svg>
+          </div>
+          <div class="kpi">
+            <div class="kpi-l">Latency P95</div>
+            <div class="kpi-v">320 ms <span>↓ 18%</span></div>
+            <svg width="140" height="118" viewBox="0 0 190 120" fill="none">
+              <line x1="0" x2="190" y1="10" y2="10" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="32" y2="32" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="54" y2="54" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="76" y2="76" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="98" y2="98" stroke="rgba(255,255,255,.06)"/>
+              <path d="M4 82 L20 74 L32 80 L46 66 L58 72 L72 60 L86 68 L100 56 L114 62 L128 44 L140 52 L154 34 L168 46 L186 30" stroke="#F2C57C" stroke-width="1.6"/>
+            </svg>
+          </div>
+          <div class="kpi">
+            <div class="kpi-l">Quality Score</div>
+            <div class="kpi-v">98.2 <span>↑ 6%</span></div>
+            <svg width="140" height="118" viewBox="0 0 190 120" fill="none">
+              <line x1="0" x2="190" y1="10" y2="10" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="32" y2="32" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="54" y2="54" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="76" y2="76" stroke="rgba(255,255,255,.06)"/><line x1="0" x2="190" y1="98" y2="98" stroke="rgba(255,255,255,.06)"/>
+              <path d="M4 88 L22 76 L36 80 L52 62 L66 70 L82 52 L98 58 L114 44 L130 50 L146 34 L162 40 L186 22" stroke="#F2C57C" stroke-width="1.6"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pillar cards -->
+    <div class="pillar" style="left:50px;width:446px">
+      <svg class="pillar-deco" style="right:22px;top:10px" width="170" height="120" viewBox="0 0 170 120" fill="none" opacity=".35">
+        <rect x="8" y="58" width="20" height="62" stroke="#F2C57C" stroke-opacity=".5" fill="rgba(242,197,124,.06)"/>
+        <rect x="36" y="38" width="20" height="82" stroke="#F2C57C" stroke-opacity=".5" fill="rgba(242,197,124,.06)"/>
+        <rect x="64" y="4" width="20" height="116" stroke="#F2C57C" stroke-opacity=".6" fill="rgba(242,197,124,.1)"/>
+        <rect x="92" y="44" width="20" height="76" stroke="#F2C57C" stroke-opacity=".5" fill="rgba(242,197,124,.06)"/>
+        <rect x="120" y="30" width="20" height="90" stroke="#F2C57C" stroke-opacity=".5" fill="rgba(242,197,124,.06)"/>
+        <rect x="148" y="66" width="18" height="54" stroke="#F2C57C" stroke-opacity=".4" fill="rgba(242,197,124,.04)"/>
+      </svg>
+      <div class="pillar-head"><div class="pillar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5V19A9 3 0 0 0 21 19V5"/><path d="M3 12A9 3 0 0 0 21 12"/></svg></div><div class="pillar-title">FINOPS</div></div>
+      <p>Token-level cost tracking per agent, model, and tool. Budget enforcement, cost-anomaly alerts, waste detection, forecasting, and chargeback reporting.</p>
+      <div class="pillar-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="pillar" style="left:512px;width:414px">
+      <svg class="pillar-deco" style="right:0;bottom:0" width="300" height="150" viewBox="0 0 300 150" fill="none">
+        <path d="M0 120 C 70 150, 120 40, 190 70 S 280 20, 300 30" stroke="rgba(242,197,124,0.050)"/><path d="M0 122 C 70 147, 120 45, 190 73 S 280 24, 300 34" stroke="rgba(242,197,124,0.062)"/><path d="M0 124 C 70 144, 120 50, 190 76 S 280 28, 300 38" stroke="rgba(242,197,124,0.074)"/><path d="M0 126 C 70 141, 120 55, 190 79 S 280 32, 300 42" stroke="rgba(242,197,124,0.086)"/><path d="M0 128 C 70 138, 120 60, 190 82 S 280 36, 300 46" stroke="rgba(242,197,124,0.098)"/><path d="M0 130 C 70 135, 120 65, 190 85 S 280 40, 300 50" stroke="rgba(242,197,124,0.110)"/><path d="M0 132 C 70 132, 120 70, 190 88 S 280 44, 300 54" stroke="rgba(242,197,124,0.122)"/><path d="M0 134 C 70 129, 120 75, 190 91 S 280 48, 300 58" stroke="rgba(242,197,124,0.134)"/><path d="M0 136 C 70 126, 120 80, 190 94 S 280 52, 300 62" stroke="rgba(242,197,124,0.146)"/><path d="M0 138 C 70 123, 120 85, 190 97 S 280 56, 300 66" stroke="rgba(242,197,124,0.158)"/><path d="M0 140 C 70 120, 120 90, 190 100 S 280 60, 300 70" stroke="rgba(242,197,124,0.170)"/><path d="M0 142 C 70 117, 120 95, 190 103 S 280 64, 300 74" stroke="rgba(242,197,124,0.182)"/><path d="M0 144 C 70 114, 120 100, 190 106 S 280 68, 300 78" stroke="rgba(242,197,124,0.194)"/><path d="M0 146 C 70 111, 120 105, 190 109 S 280 72, 300 82" stroke="rgba(242,197,124,0.206)"/>
+      </svg>
+      <svg class="pillar-deco" style="right:20px;top:14px" width="140" height="70" viewBox="0 0 140 70">
+        <circle cx="4" cy="4" r="1" fill="#F2C57C" opacity="0.05"/><circle cx="4" cy="13" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="4" cy="22" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="4" cy="31" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="4" cy="40" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="4" cy="49" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="4" cy="58" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="13" cy="4" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="13" cy="13" r="1" fill="#F2C57C" opacity="0.05"/><circle cx="13" cy="22" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="13" cy="31" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="13" cy="40" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="13" cy="49" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="13" cy="58" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="22" cy="4" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="22" cy="13" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="22" cy="22" r="1" fill="#F2C57C" opacity="0.05"/><circle cx="22" cy="31" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="22" cy="40" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="22" cy="49" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="22" cy="58" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="31" cy="4" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="31" cy="13" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="31" cy="22" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="31" cy="31" r="1" fill="#F2C57C" opacity="0.05"/><circle cx="31" cy="40" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="31" cy="49" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="31" cy="58" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="40" cy="4" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="40" cy="13" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="40" cy="22" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="40" cy="31" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="40" cy="40" r="1" fill="#F2C57C" opacity="0.05"/><circle cx="40" cy="49" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="40" cy="58" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="49" cy="4" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="49" cy="13" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="49" cy="22" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="49" cy="31" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="49" cy="40" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="49" cy="49" r="1" fill="#F2C57C" opacity="0.05"/><circle cx="49" cy="58" r="1" fill="#F2C57C" opacity="0.04"/><circle cx="58" cy="4" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="58" cy="13" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="58" cy="22" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="58" cy="31" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="58" cy="40" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="58" cy="49" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="58" cy="58" r="1" fill="#F2C57C" opacity="0.05"/><circle cx="67" cy="4" r="1" fill="#F2C57C" opacity="0.26"/><circle cx="67" cy="13" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="67" cy="22" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="67" cy="31" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="67" cy="40" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="67" cy="49" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="67" cy="58" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="76" cy="4" r="1" fill="#F2C57C" opacity="0.29"/><circle cx="76" cy="13" r="1" fill="#F2C57C" opacity="0.26"/><circle cx="76" cy="22" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="76" cy="31" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="76" cy="40" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="76" cy="49" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="76" cy="58" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="85" cy="4" r="1" fill="#F2C57C" opacity="0.32"/><circle cx="85" cy="13" r="1" fill="#F2C57C" opacity="0.29"/><circle cx="85" cy="22" r="1" fill="#F2C57C" opacity="0.26"/><circle cx="85" cy="31" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="85" cy="40" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="85" cy="49" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="85" cy="58" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="94" cy="4" r="1" fill="#F2C57C" opacity="0.35"/><circle cx="94" cy="13" r="1" fill="#F2C57C" opacity="0.32"/><circle cx="94" cy="22" r="1" fill="#F2C57C" opacity="0.29"/><circle cx="94" cy="31" r="1" fill="#F2C57C" opacity="0.26"/><circle cx="94" cy="40" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="94" cy="49" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="94" cy="58" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="103" cy="4" r="1" fill="#F2C57C" opacity="0.32"/><circle cx="103" cy="13" r="1" fill="#F2C57C" opacity="0.29"/><circle cx="103" cy="22" r="1" fill="#F2C57C" opacity="0.26"/><circle cx="103" cy="31" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="103" cy="40" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="103" cy="49" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="103" cy="58" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="112" cy="4" r="1" fill="#F2C57C" opacity="0.29"/><circle cx="112" cy="13" r="1" fill="#F2C57C" opacity="0.26"/><circle cx="112" cy="22" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="112" cy="31" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="112" cy="40" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="112" cy="49" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="112" cy="58" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="121" cy="4" r="1" fill="#F2C57C" opacity="0.26"/><circle cx="121" cy="13" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="121" cy="22" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="121" cy="31" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="121" cy="40" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="121" cy="49" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="121" cy="58" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="130" cy="4" r="1" fill="#F2C57C" opacity="0.23"/><circle cx="130" cy="13" r="1" fill="#F2C57C" opacity="0.20"/><circle cx="130" cy="22" r="1" fill="#F2C57C" opacity="0.17"/><circle cx="130" cy="31" r="1" fill="#F2C57C" opacity="0.14"/><circle cx="130" cy="40" r="1" fill="#F2C57C" opacity="0.11"/><circle cx="130" cy="49" r="1" fill="#F2C57C" opacity="0.08"/><circle cx="130" cy="58" r="1" fill="#F2C57C" opacity="0.05"/>
+      </svg>
+      <div class="pillar-head"><div class="pillar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg></div><div class="pillar-title">TECHOPS</div></div>
+      <p>Latency, error rates, throughput, uptime, and distributed traces — with SLO tracking your SRE team will recognize.</p>
+      <div class="pillar-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+    </div>
+
+    <div class="pillar" style="left:942px;width:448px">
+      <svg class="pillar-deco" style="right:0;top:0" width="260" height="300" viewBox="0 0 260 300" fill="none">
+        <defs>
+          <radialGradient id="orb" cx="1" cy=".75" r=".9">
+            <stop offset=".55" stop-color="#E3A955" stop-opacity=".0"/>
+            <stop offset=".8" stop-color="#E3A955" stop-opacity=".18"/>
+            <stop offset="1" stop-color="#F9DDA6" stop-opacity=".0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="330" cy="260" r="190" fill="url(#orb)"/>
+        <path d="M185 200 A210 210 0 0 1 262 96" stroke="rgba(249,221,166,.7)" stroke-width="1.5"/>
+        <path d="M192 184 A210 210 0 0 1 256 104" stroke="rgba(249,221,166,.25)" stroke-width="6" opacity=".4"/>
+        <circle cx="150" cy="60" r="1" fill="#F2C57C" opacity="0.5"/><circle cx="190" cy="90" r="1.2" fill="#F2C57C" opacity="0.6"/><circle cx="220" cy="130" r="1" fill="#F2C57C" opacity="0.4"/><circle cx="170" cy="120" r="0.8" fill="#F2C57C" opacity="0.4"/><circle cx="236" cy="76" r="1" fill="#F2C57C" opacity="0.5"/><circle cx="206" cy="190" r="1" fill="#F2C57C" opacity="0.35"/><circle cx="240" cy="220" r="1.2" fill="#F2C57C" opacity="0.45"/><circle cx="160" cy="210" r="0.8" fill="#F2C57C" opacity="0.3"/><circle cx="130" cy="110" r="0.8" fill="#F2C57C" opacity="0.3"/><circle cx="228" cy="260" r="1" fill="#F2C57C" opacity="0.3"/>
+      </svg>
+      <div class="pillar-head"><div class="pillar-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div><div class="pillar-title">AIOPS</div></div>
+      <p>Toxicity, hallucination, PII leakage, prompt injection, jailbreak, and bias — monitored continuously with 53+ configurable alert rules.</p>
+      <div class="pillar-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F2C57C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
