@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>PAVE Value Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root { --o: #F4A62A; --ink: #111111; --light: #FAFAF7; --dark: #0A0A0A; --g: #5B5B5B; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--light); font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; color: var(--ink); -webkit-font-smoothing: antialiased; }
+  .page { width: 1440px; margin: 0 auto; overflow: hidden; }
+  section { position: relative; width: 1440px; overflow: hidden; }
+  .light { background: var(--light); color: var(--ink); }
+  .dark { background: var(--dark); color: #FFF; }
+  .deco { position: absolute; left: 0; top: 0; pointer-events: none; }
+  .eb { position: absolute; left: 72px; display: flex; align-items: center; gap: 22px; font: 600 15px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: .02em; text-transform: uppercase; }
+  .eb::before { content: ""; width: 48px; height: 3px; background: var(--o); }
+  .eb.o { color: var(--o); }
+  h2 { position: absolute; left: 70px; font-weight: 800; letter-spacing: -0.03em; }
+  .acc { color: var(--o); }
+
+  /* ---------- 1 ---------- */
+  .s1 { height: 610px; }
+  .s1 h2 { top: 66px; font-size: 50px; line-height: 1.02; }
+  .s1 .lead { position: absolute; left: 72px; top: 236px; width: 600px; font: 400 17.5px/1.45 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .s1 .lead b { color: #111; font-weight: 700; }
+  .vdiv { position: absolute; width: 1px; background: #E2DED6; }
+  .cir { position: absolute; top: 76px; width: 150px; height: 150px; border-radius: 50%; display: grid; place-items: center;
+    background: #FFF; border: 1.5px solid #D9D5CC; font: 700 24px/1 "Plus Jakarta Sans", sans-serif; color: #111; box-shadow: 0 4px 16px rgba(0,0,0,.04); }
+  .cir.pave { background: radial-gradient(circle at 50% 45%, #2A1A06, #0A0806 70%); border: 0; color: var(--o); font-size: 32px; font-weight: 800;
+    box-shadow: 0 0 0 4px rgba(244,166,42,.18), 0 0 40px 10px rgba(244,166,42,.45); }
+  .cap { position: absolute; left: 820px; width: 446px; top: 256px; text-align: center; font: 400 16px/1 "Plus Jakarta Sans", sans-serif; color: #444; }
+  .pil { position: absolute; top: 380px; display: flex; gap: 28px; }
+  .pil h4 { font: 700 20px/1.2 "Plus Jakarta Sans", sans-serif; color: #111; }
+  .pil p { margin-top: 10px; width: 290px; font: 400 15.5px/1.48 "Plus Jakarta Sans", sans-serif; color: #555; }
+  .side { position: absolute; left: 62px; top: 516px; width: 1316px; height: 66px; border-radius: 10px; background: #FCF1DC;
+    display: flex; align-items: center; gap: 22px; padding-left: 38px; font: 400 17px/1 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .side b { font-weight: 700; color: #111; }
+
+  /* ---------- 2 ---------- */
+  .s2 { height: 628px; background: radial-gradient(420px 320px at 721px 440px, rgba(244,166,42,.12), transparent 70%), var(--dark); }
+  .s2 .eb { color: #E8E3DA; }
+  .s2 h2 { top: 62px; font-size: 50px; line-height: 1.1; }
+  .s2 .lead { position: absolute; left: 72px; top: 126px; width: 960px; font: 400 20px/1.5 "Plus Jakarta Sans", sans-serif; color: #EDE8DF; }
+  .bul { position: absolute; display: flex; align-items: center; gap: 20px; font: 500 19px/1 "Plus Jakarta Sans", sans-serif; color: #F1ECE3; }
+  .bul::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--o); }
+  .eco { position: absolute; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 6px;
+    border: 1.5px solid rgba(244,166,42,.7); background: radial-gradient(circle at 50% 40%, rgba(60,38,10,.85), rgba(10,8,6,.95) 75%);
+    box-shadow: 0 0 26px rgba(244,166,42,.18), inset 0 0 26px rgba(244,166,42,.08); }
+  .eco b { margin-top: 6px; font: 700 19px/1.15 "Plus Jakarta Sans", sans-serif; color: #FFF; }
+  .eco span { font: 400 14.5px/1.3 "Plus Jakarta Sans", sans-serif; color: #E8E3DA; }
+  .eco.hot { border: 3px solid #FFB547; background: radial-gradient(circle at 50% 40%, #24170A, #0A0806 75%);
+    box-shadow: 0 0 0 6px rgba(244,166,42,.15), 0 0 60px 14px rgba(244,166,42,.45), inset 0 0 30px rgba(244,166,42,.15); }
+  .eco strong { font: 800 46px/1 "Plus Jakarta Sans", sans-serif; color: var(--o); letter-spacing: -.01em; }
+  .eco em { margin-top: 6px; font: 500 13px/1.35 "Plus Jakarta Sans", sans-serif; font-style: normal; letter-spacing: .04em; color: #E8E3DA; }
+
+  /* ---------- 3 ---------- */
+  .s3 { height: 630px; }
+  .s3 h2 { top: 64px; font-size: 42px; }
+  .s3 .lead { position: absolute; left: 72px; top: 118px; width: 1060px; font: 400 16.5px/1.45 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .blk { position: absolute; top: 186px; height: 416px; border-radius: 12px; background: #FFF; border: 1px solid #E6E2D9; box-shadow: 0 2px 10px rgba(0,0,0,.03); }
+  .bn { position: absolute; left: 20px; top: 18px; width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; background: #FDF0D8; font: 700 19px/1 "Plus Jakarta Sans", sans-serif; color: var(--o); }
+  .bl { position: absolute; left: 84px; top: 18px; font: 500 14.5px/1 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .bt { position: absolute; left: 84px; top: 40px; font: 800 20px/1 "Plus Jakarta Sans", sans-serif; color: #111; letter-spacing: -.01em; }
+  .bd { position: absolute; left: 20px; top: 82px; width: 390px; font: 400 14.5px/1.5 "Plus Jakarta Sans", sans-serif; color: #555; }
+  .tl { position: absolute; top: 148px; font: 700 15px/1.25 "Plus Jakarta Sans", sans-serif; color: #111; }
+  .dot { position: absolute; top: 245px; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: #FFF; border: 1px solid #DDD8CE; }
+  .dot-l { position: absolute; top: 310px; width: 100px; text-align: center; font: 400 13px/1.3 "Plus Jakarta Sans", sans-serif; color: #444; }
+  .r2 { position: absolute; left: 18px; width: 392px; border-radius: 8px; background: #F7F5F0; display: flex; align-items: center; gap: 26px; padding-left: 22px;
+    font: 400 14.5px/1.4 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .r2 b { color: #111; font-weight: 700; }
+  .chip { position: absolute; top: 140px; height: 32px; border-radius: 6px; background: #F4F2ED; display: grid; place-items: center; font: 500 13px/1 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .band { position: absolute; left: 16px; width: 394px; border-radius: 7px; text-align: center; }
+  .band b { display: block; font: 700 14px/1.25 "Plus Jakarta Sans", sans-serif; color: #111; }
+  .band small { font: 400 13px/1.3 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .models { display: flex; justify-content: space-around; margin-top: 10px; font: 400 12.5px/1 "Plus Jakarta Sans", sans-serif; color: #444; }
+  .dl { display: flex; justify-content: space-around; margin-top: 10px; font: 400 13px/1 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .dl div { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+  /* ---------- 4 ---------- */
+  .s4 { height: 344px; background: radial-gradient(260px 220px at 721px 172px, rgba(244,166,42,.18), transparent 70%), #050505; }
+  .s4 h2 { top: 62px; font-size: 38px; line-height: 1.04; color: #FFF; }
+  .s4 .lead { position: absolute; left: 62px; top: 220px; width: 440px; font: 400 15.5px/1.5 "Plus Jakarta Sans", sans-serif; color: #E8E3DA; }
+  .pc { position: absolute; width: 182px; height: 134px; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px;
+    border: 1px solid rgba(255,255,255,.14); background: linear-gradient(180deg, #17140F, #0C0B09); }
+  .pc b { margin-top: 4px; font: 700 15px/1.2 "Plus Jakarta Sans", sans-serif; color: #FFF; }
+  .pc span { font: 400 13px/1.25 "Plus Jakarta Sans", sans-serif; color: #D8D2C8; }
+  .pathc { position: absolute; left: 659px; top: 110px; width: 124px; height: 124px; border-radius: 50%; display: grid; place-items: center;
+    background: radial-gradient(circle at 50% 45%, #3A230A, #0E0A06 70%); border: 2.5px solid #FFB547; font: 800 28px/1 "Plus Jakarta Sans", sans-serif; color: #FFF;
+    box-shadow: 0 0 0 5px rgba(244,166,42,.15), 0 0 40px 10px rgba(244,166,42,.4); }
+  .eth { position: absolute; left: 973px; display: flex; align-items: center; gap: 18px; font: 400 14.5px/1 "Plus Jakarta Sans", sans-serif; color: #E8E3DA; }
+  .rai { position: absolute; left: 1218px; top: 25px; width: 186px; height: 290px; border-radius: 8px; padding: 26px 16px 0 18px;
+    border: 1px solid rgba(255,255,255,.14); background: linear-gradient(180deg, #16130F, #0B0A08); text-align: center; }
+  .rai b { display: block; margin-top: 10px; font: 700 14px/1.2 "Plus Jakarta Sans", sans-serif; color: var(--o); }
+  .rai p { margin-top: 18px; text-align: left; font: 400 13px/1.5 "Plus Jakarta Sans", sans-serif; color: #D8D2C8; }
+
+  /* ---------- 5 ---------- */
+  .s5 { height: 312px; }
+  .s5 h2 { top: 50px; font-size: 30px; line-height: 1.12; }
+  .s5 .lead { position: absolute; left: 66px; top: 128px; width: 400px; font: 400 15.5px/1.45 "Plus Jakarta Sans", sans-serif; color: #444; }
+  .num { position: absolute; top: 46px; width: 26px; height: 26px; border-radius: 50%; background: var(--o); display: grid; place-items: center;
+    font: 700 10.5px/1 "Plus Jakarta Sans", sans-serif; color: #FFF; box-shadow: 0 0 0 4px rgba(244,166,42,.18); }
+  .mv { position: absolute; top: 86px; width: 158px; }
+  .mv h5 { font: 700 14.5px/1.3 "Plus Jakarta Sans", sans-serif; color: #111; }
+  .mv p { margin-top: 10px; font: 400 13.5px/1.4 "Plus Jakarta Sans", sans-serif; color: #555; }
+  .vline { position: absolute; top: 86px; width: 1px; height: 106px; background: #E2DED6; }
+  .quote { position: absolute; left: 62px; top: 228px; width: 1316px; height: 64px; border-radius: 8px; background: #F3F1EC; }
+  .quote .qm { position: absolute; left: 30px; top: 0; font: 800 58px/1 Georgia, serif; color: var(--o); }
+  .quote p { position: absolute; left: 100px; top: 12px; width: 960px; font: italic 400 14.5px/1.45 "Plus Jakarta Sans", sans-serif; color: #444; }
+  .quote .who { position: absolute; left: 1090px; top: 14px; padding-left: 26px; border-left: 1px solid #D9D5CC; height: 38px; }
+  .who b { display: block; font: 700 14.5px/1.2 "Plus Jakarta Sans", sans-serif; color: #111; }
+  .who small { font: 400 12.5px/1.4 "Plus Jakarta Sans", sans-serif; color: #555; }
+
+  /* ---------- 6 ---------- */
+  .s6 { height: 110px; background: #000; }
+  .s6 h3 { position: absolute; left: 70px; top: 18px; font: 800 28px/1.24 "Plus Jakarta Sans", sans-serif; color: #FFF; letter-spacing: -.01em; }
+  .s6 p { position: absolute; left: 554px; top: 18px; width: 470px; font: 400 15px/1.5 "Plus Jakarta Sans", sans-serif; color: #E8E3DA; }
+  .s6 .btn { position: absolute; left: 1083px; top: 24px; width: 292px; height: 60px; border-radius: 6px; background: #F7B13D; display: grid; place-items: center;
+    font: 700 17px/1 "Plus Jakarta Sans", sans-serif; color: #111; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= WHY THIS MATTERS ================= -->
+  <section class="light s1">
+    <div class="eb" style="top:40px">Why this matters</div>
+    <h2>Most AI programs<br>stall between<br>the pilot and the P&amp;L.</h2>
+    <p class="lead">Photon has spent two product cycles — <b>API management</b>, then <b>Digital HyperExpansion</b> — building the muscle for this one. PAVE is the next blueprint: a system that lets AI solutions evolve alongside the business instead of freezing the moment they ship.</p>
+    <div class="vdiv" style="left:696px;top:92px;height:250px"></div>
+
+    <div class="cir" style="left:724px">Pilot</div>
+    <div class="cir pave" style="left:965px">PAVE</div>
+    <div class="cir" style="left:1212px">P&amp;L</div>
+    <svg class="deco" width="1440" height="610" viewBox="0 0 1440 610" fill="none">
+      <path d="M880 151 H940 M934 145 L941 151 L934 157" stroke="#222" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M1130 151 H1190 M1184 145 L1191 151 L1184 157" stroke="#222" stroke-width="2" stroke-dasharray="5 5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p class="cap">Closing the gap from pilot to measurable business value.</p>
+
+    
+    <div class="pil" style="left:72px"><svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg><div><h4>Run a better tech shop</h4><p>Efficient systems that reduce the drag of legacy stacks on every new AI initiative.</p></div></div>
+    <div class="pil" style="left:554px"><svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 11h8M8 15h8M8 19h5"/></svg><div><h4>Run a better business</h4><p>Optimized processes that turn AI from a side project into how the work actually gets done.</p></div></div>
+    <div class="pil" style="left:1009px"><svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4.5" height="9" rx="1"/><rect x="9.75" y="7" width="4.5" height="14" rx="1"/><rect x="16.5" y="3" width="4.5" height="18" rx="1"/></svg><div><h4>Play to win</h4><p>Enhanced engagement and stickier revenue — the commercial upside of getting there first.</p></div></div>
+    <div class="vdiv" style="left:524px;top:385px;height:108px"></div>
+    <div class="vdiv" style="left:968px;top:385px;height:108px"></div>
+
+    <div class="side"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><span><b>Side effect</b>&nbsp; + doing all three forces architecture modernization, whether you planned for it or not.</span></div>
+  </section>
+
+  <!-- ================= THE ECOSYSTEM ================= -->
+  <section class="dark s2">
+    <div class="eb" style="top:40px">The ecosystem</div>
+    <h2>One engine, three working parts.</h2>
+    <p class="lead">PAVE connects an AI Hub of live use cases to an Academy that builds internal capability and a Commercialization Engine that proves out returns — so knowledge, adoption, and value compound together instead of living in separate workstreams.</p>
+
+    <div class="bul" style="left:88px;top:278px">Legacy modernization</div>
+    <div class="bul" style="left:88px;top:323px">Contact center</div>
+    <div class="bul" style="left:88px;top:369px">Data modernization</div>
+    <div class="bul" style="left:1158px;top:278px">Recruiting</div>
+    <div class="bul" style="left:1158px;top:323px">New development</div>
+    <div class="bul" style="left:1158px;top:369px">Assessments</div>
+
+    <svg class="deco" width="1440" height="628" viewBox="0 0 1440 628" fill="none">
+      <g stroke="#F4A62A" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M500 368 Q 530 310 590 284"/><path d="M500 368 l1-15 M500 368 l13-6"/><path d="M590 284 l-15-2 M590 284 l-8 12"/>
+        <path d="M850 284 Q 910 310 940 368"/><path d="M940 368 l-1-15 M940 368 l-13-6"/>
+        <path d="M578 482 H604 M597 474 L605 482 L597 490"/>
+        <path d="M838 482 H864 M857 474 L865 482 L857 490"/>
+      </g>
+    </svg>
+    <div class="eco" style="left:621px;top:216px;width:200px;height:200px"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><b>AI Hub</b><span>Live use cases</span></div><div class="eco" style="left:351px;top:382px;width:200px;height:200px"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><b>Photon Academy</b><span>Builds capability,<br>adoption, and productivity.</span></div><div class="eco" style="left:889px;top:382px;width:200px;height:200px"><svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 17v-4M11 17v-7M15 17v-5M19 17V6"/><path d="m6 10 4-3 4 2 5-5"/></svg><b>Commercialization<br>Engine</b><span>Proves and scales returns.</span></div><div class="eco hot" style="left:619px;top:380px;width:204px;height:204px"><strong>PAVE</strong><em>PHOTON AI<br>VALUE ENGINE</em></div>
+  </section>
+
+  <!-- ================= THREE BLOCKS ================= -->
+  <section class="light s3">
+    <div class="eb o" style="top:40px">How Photon delivers it</div>
+    <h2>The strategy rests on three blocks.</h2>
+    <p class="lead">Each one answers a different question: how fast can we start, how much of this have you already solved for us, and will it still be standing when the platforms underneath it change.</p>
+
+    <div class="blk" style="left:37px;width:476px">
+      <div class="bn">01</div><div class="bl">Differentiated methods</div><div class="bt">Speed to first value</div>
+      <p class="bd" style="width:420px">Go from idea to working solution with a four-week Accelerator or a two-month Jumpstart.</p>
+      <div class="tl" style="left:20px">4-week<br>Accelerator</div>
+      <div class="tl" style="left:278px">2-month<br>Jumpstart</div>
+      <svg class="deco" width="476" height="416" viewBox="0 0 476 416" fill="none">
+        <path d="M188 146 V186" stroke="#DDD8CE"/>
+        <path d="M20 203 H440 M432 197 L441 203 L432 209" stroke="#F4A62A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M83 271 H108 M103 267 L108 271 L103 275" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M174 271 H202 M197 267 L202 271 L197 275" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M268 271 H299 M294 267 L299 271 L294 275" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M365 271 H393 M388 267 L393 271 L388 275" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="dot" style="left:25px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v2h6V3"/><circle cx="11.5" cy="12" r="2.5"/><path d="m13.5 14 2 2"/></svg></div><div class="dot-l" style="left:1px">Use case<br>definition</div><div class="dot" style="left:116px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="5" rx="1"/><rect x="16" y="17" width="6" height="5" rx="1"/><path d="M12 7v5M5 17v-3h14v3"/></svg></div><div class="dot-l" style="left:92px">Data<br>evaluation<br>&amp; prep</div><div class="dot" style="left:210px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="8" cy="8" r=".9"/><circle cx="8" cy="12" r=".9"/><circle cx="8" cy="16" r=".9"/><circle cx="12" cy="8" r=".9"/><circle cx="12" cy="12" r=".9"/><circle cx="12" cy="16" r=".9"/><circle cx="16" cy="8" r=".9"/><circle cx="16" cy="12" r=".9"/><circle cx="16" cy="16" r=".9"/></svg></div><div class="dot-l" style="left:186px">Model<br>identification</div><div class="dot" style="left:307px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 16v5"/><path d="m9 9.5 2 2 4-4"/></svg></div><div class="dot-l" style="left:283px">Development<br>&amp; testing</div><div class="dot" style="left:401px"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="7.5" r="4"/><path d="M3 20a7 7 0 0 1 10-6.3"/><circle cx="18" cy="17" r="2.5"/><path d="M18 13v1.5M18 19.5V21M14 17h1.5M20.5 17H22"/></svg></div><div class="dot-l" style="left:377px">Model<br>validation</div>
+    </div>
+
+    <div class="blk" style="left:531px;width:428px">
+      <div class="bn">02</div><div class="bl">Pre-contextualized models</div><div class="bt">Already solved, for your industry</div>
+      <p class="bd" style="width:390px">Deploy industry-tuned models and proven patterns to skip months of trial and error.</p>
+      <div class="r2" style="top:139px;height:66px"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span><b>6× faster candidate shortlisting,</b><br>with a pre-trained NLP scoring model</span></div><div class="r2" style="top:219px;height:82px"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg><span><b>TIBCO → µS legacy code</b><br>transformed into modern<br>microservices</span></div><div class="r2" style="top:314px;height:80px"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></svg><span><b><span style="display:inline-flex;vertical-align:-2px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span> CSAT</b><br>Hospitality chatbot +<br>personalization engine</span></div>
+    </div>
+
+    <div class="blk" style="left:978px;width:426px">
+      <div class="bn">03</div><div class="bl">Future-proof architectures</div><div class="bt">Built to outlast the platform layer</div>
+      <p class="bd" style="width:390px">A modular architecture that works across models today — and whatever comes next.</p>
+      <div class="chip" style="left:16px;width:92px">Chatbots</div>
+      <div class="chip" style="left:116px;width:90px">Copilots</div>
+      <div class="chip" style="left:214px;width:106px">Contact center</div>
+      <div class="chip" style="left:328px;width:82px">Custom UI</div>
+      <div class="band" style="top:180px;height:56px;padding-top:9px;background:#FCE3B2;border:1px solid #F2BE5E"><b>Orchestration and domain AI</b><small>(agents, workflows, guardrails)</small></div>
+      <div class="band" style="top:244px;height:58px;padding-top:9px;background:#F4F2ED"><b style="font-size:13.5px">Model layer</b>
+        <div class="models"><span>Gemini</span><span>GPT-4 / Azure</span><span>Anthropic</span><span>Cohere</span><span>Mistral</span></div></div>
+      <div class="band" style="top:310px;height:92px;padding-top:9px;background:#F4F2ED"><b style="font-size:13.5px">Data layer</b>
+        <div class="dl"><div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg>Data lake</div><div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M7 7h.01M7 17h.01M12 10v4"/></svg>Warehouse</div><div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 8 4.5v9L12 20l-8-4.5v-9z"/><path d="M12 11v9M4 6.5l8 4.5 8-4.5M8 4.2l8 4.6"/></svg>Code &amp; document repos</div></div></div>
+    </div>
+  </section>
+
+  <!-- ================= ETHICS ================= -->
+  <section class="dark s4">
+    <div class="eb o" style="top:36px;left:62px">The ethics layer</div>
+    <h2 style="left:60px"><span class="acc">PATH:</span> how we keep<br>AI accountable<br>while it moves fast.</h2>
+    <p class="lead">Every solution built on PAVE is run through PATH — a framework that puts privacy, trust, and the human experience ahead of the model, not after it.</p>
+
+    <svg class="deco" width="1440" height="344" viewBox="0 0 1440 344" fill="none">
+      <path d="M721 60 V284 M560 172 H882" stroke="rgba(244,166,42,.45)" stroke-width="1.2"/>
+      <path d="M955 30 V318" stroke="rgba(255,255,255,.14)"/>
+    </svg>
+    <div class="pc" style="left:513px;top:25px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="11" x="4" y="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16.5" r="1.2"/></svg><b>Privacy first</b><span>Protect data and<br>build trust.</span></div><div class="pc" style="left:747px;top:25px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg><b>Trust centered</b><span>Build and maintain<br>confidence.</span></div><div class="pc" style="left:513px;top:185px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/><rect x="9.5" y="9.5" width="5" height="5" rx=".5"/></svg><b>AI aligned</b><span>Use AI responsibly<br>and effectively.</span></div><div class="pc" style="left:747px;top:185px"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><b>Human experience led</b><span>Augment people,<br>not replace them.</span></div>
+    <div class="pathc">PATH</div>
+    <div class="eth" style="top:40px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6M10 22h4"/></svg><span>Explainable — quantitative</span></div><div class="eth" style="top:77px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 16.5s-4-2.4-4-5.2A2.2 2.2 0 0 1 12 10a2.2 2.2 0 0 1 4 1.3c0 2.8-4 5.2-4 5.2z"/></svg><span>Ethical — qualitative</span></div><div class="eth" style="top:114px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Inclusiveness</span></div><div class="eth" style="top:151px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 21h10M4 7h16"/><path d="M6.5 7 3.5 13a3 3 0 0 0 6 0zM17.5 7l-3 6a3 3 0 0 0 6 0z"/></svg><span>Fairness</span></div><div class="eth" style="top:188px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="9.5" r="2.8"/><path d="M7 18a5 5 0 0 1 10 0"/></svg><span>Accountability</span></div><div class="eth" style="top:225px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="11" x="4" y="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16.5" r="1.2"/></svg><span>Privacy &amp; security</span></div><div class="eth" style="top:262px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="1.8"/></svg><span>Reliability &amp; safety</span></div><div class="eth" style="top:299px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>Transparency</span></div>
+    <div class="rai"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#F4A62A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3 3.5 8.5h17z"/><path d="M6.5 10v8M10.5 10v8M13.5 10v6M17.5 10v8"/><path d="m11 18 2-3 2 1.5 3-4"/></svg><b>Responsible AI Index</b>
+      <p>Manage, regulatory compliance and trust scores, model risk parameters, all of whether the system is actually behaving.</p></div>
+  </section>
+
+  <!-- ================= FIVE MOVES ================= -->
+  <section class="light s5">
+    <div class="eb o" style="top:26px;left:66px">Getting started</div>
+    <h2 style="left:64px">Five moves to adopt<br>an AI ecosystem, in order.</h2>
+    <p class="lead">Define where you’re going before you build anything. Then start small, prove it, and scale what works.</p>
+    <svg class="deco" width="1440" height="300" viewBox="0 0 1440 300" fill="none"><path d="M558 59 H692 M687 55 L692 59 L687 63" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M736 59 H876 M871 55 L876 59 L871 63" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M920 59 H1084 M1079 55 L1084 59 L1079 63" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M1128 59 H1254 M1249 55 L1254 59 L1249 63" stroke="#F4A62A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="num" style="left:524px">01</div><div class="mv" style="left:524px"><h5>Vision &amp; value<br>chain definition</h5><p>Set the business ambition and prioritize where AI can create value.</p></div><div class="num" style="left:702px">02</div><div class="mv" style="left:702px"><h5>Use case<br>development</h5><p>Identify and validate high-value use cases with clear success criteria.</p></div><div class="vline" style="left:682px"></div><div class="num" style="left:886px">03</div><div class="mv" style="left:886px"><h5>Establish an AI<br>Transformation Center</h5><p>Create the team, operating model, and governance to scale adoption.</p></div><div class="vline" style="left:866px"></div><div class="num" style="left:1094px">04</div><div class="mv" style="left:1094px"><h5>Construct<br>the architecture</h5><p>Build a modular, future-proof foundation.</p></div><div class="vline" style="left:1074px"></div><div class="num" style="left:1264px">05</div><div class="mv" style="left:1264px"><h5>Start small,<br>scale fast</h5><p>Launch, learn, and expand what works across the business.</p></div><div class="vline" style="left:1244px"></div>
+    <div class="quote">
+      <div class="qm">“</div>
+      <p>“The Photon AI Value Engine is a foundation for building future-ready businesses. Its value lies in its adaptability — our data sets and models get smarter over time, continuously improving and adapting.”</p>
+      <div class="who"><b>Mane Oved</b><small>Chief Executive Officer, Photon</small></div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="s6">
+    <h3><span class="acc">Want to see PAVE</span> applied<br>to your own stack?</h3>
+    <div class="vdiv" style="left:508px;top:22px;height:66px;background:rgba(255,255,255,.3)"></div>
+    <p>Book a workshop, get a personalized session, or download the complete whitepaper to explore how PAVE can create value in your organization.</p>
+    <a class="btn">Talk to Our Team →</a>
+  </section>
+
+</div>
+</body>
+</html>
