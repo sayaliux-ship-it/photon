@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Pivot Now</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --gold: #D9A55B; --bg: #0D0F12; --text: #F2EEE7; --muted: #A7A29A; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); -webkit-font-smoothing: antialiased; }
+  .pivot { position: relative; width: 1440px; margin: 0 auto; padding: 100px 64px; overflow: hidden; font-family: Jost, "Plus Jakarta Sans", system-ui, sans-serif; color: var(--text);
+    background: radial-gradient(420px 320px at 1160px 120px, rgba(217,165,91,.10), transparent 70%), radial-gradient(800px 400px at 300px 300px, rgba(40,46,56,.35), transparent 70%), var(--bg); }
+  .deco { position: absolute; right: 0; top: 0; pointer-events: none; }
+  .inner { position: relative; }
+  .eb { display: flex; align-items: center; gap: 22px; font: 500 11px/1 Jost, sans-serif; letter-spacing: .26em; text-transform: uppercase; color: #DCD6CC; }
+  .eb::before { content: ""; width: 38px; height: 1.5px; background: var(--gold); }
+  .qm { margin-top: 30px; font: 700 64px/.6 Georgia, serif; color: var(--gold); height: 30px; }
+  blockquote { margin-top: 36px; width: 780px; font: 400 29px/36px Jost, sans-serif; letter-spacing: .005em; color: #F4F0EA; }
+  .name { margin-top: 30px; font: 600 16.5px/1 Jost, sans-serif; color: #F4F0EA; }
+  .role { margin-top: 12px; font: 400 14.5px/1 Jost, sans-serif; color: var(--muted); }
+  .rule { margin-top: 28px; height: 1px; background: rgba(255,255,255,.14); }
+  .cta { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; }
+  .cta p { font: 400 15.5px/1.4 Jost, sans-serif; color: #D9D4CB; }
+  .btn { display: inline-flex; align-items: center; gap: 26px; height: 48px; padding: 0 22px 0 24px; border-radius: 3px;
+    background: linear-gradient(180deg, #E1B573, #C8954F); font: 500 15.5px/1 Jost, sans-serif; color: #15110A; box-shadow: 0 6px 20px rgba(200,150,80,.18); white-space: nowrap; }
+  .foot { display: flex; justify-content: space-between; margin-top: 26px; font: 400 12px/1 Jost, sans-serif; color: #8E897F; }
+</style>
+</head>
+<body>
+  <section class="pivot">
+    <svg class="deco" width="420" height="520" viewBox="0 0 420 520" fill="none">
+      <defs>
+        <radialGradient id="orb" cx=".8" cy=".55" r=".9"><stop offset="0" stop-color="#C9A26A" stop-opacity=".55"/><stop offset=".45" stop-color="#4A3C2A" stop-opacity=".45"/><stop offset="1" stop-color="#0D0F12" stop-opacity="0"/></radialGradient>
+        <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3D29A" stop-opacity=".1"/><stop offset=".45" stop-color="#F3D29A"/><stop offset="1" stop-color="#C99A55" stop-opacity=".1"/></linearGradient>
+        <filter id="g" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+      <path d="M8 0 C 20 140, 140 280, 380 360 L420 360 L420 0Z" fill="#0D0F12"/>
+      <path d="M90 140 C 200 200, 300 300, 400 380 C 300 320, 160 250, 90 140Z" fill="url(#orb)"/>
+      <path d="M8 0 C 20 140, 140 280, 380 360" stroke="url(#rim)" stroke-width="1.6" filter="url(#g)"/>
+      <path d="M190 190 C 250 120, 330 85, 420 70" stroke="url(#rim)" stroke-width="1" opacity=".8"/>
+    </svg>
+
+    <div class="inner">
+      <div class="eb">Why enterprises need to pivot now</div>
+      <div class="qm">”</div>
+      <blockquote>The post-digital era came sooner than anyone expected. The time is now to go beyond the past playbooks of transformation and focus on digital lifecycle management of critical business processes.</blockquote>
+      <div class="name">Mukund Balasubramanian</div>
+      <div class="role">CTO, Co-Founder at Photon</div>
+      <div class="rule"></div>
+      <div class="cta">
+        <p>Connect with Photon to drive impactful change in the Third Wave of Digital.</p>
+        <a class="btn">Connect with Photon
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#15110A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></a>
+      </div>
+      <div class="foot"><span>Source: Photon’s “An Overview of Digital HyperExpansion (DHX)” infographic</span><span>© Photon Interactive UK Limited</span></div>
+    </div>
+  </section>
+</body>
+</html>
