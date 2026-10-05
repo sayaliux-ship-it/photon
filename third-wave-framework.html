@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Third Wave Framework</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --o: #F2A33A; --o-dk: #B9620E; --bg: #F6F5F2; --ink: #0F0F0F; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); -webkit-font-smoothing: antialiased; }
+  .fw { width: 1440px; margin: 0 auto; padding: 100px 64px; background: var(--bg); font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; color: var(--ink); }
+  .eb { display: flex; align-items: center; gap: 16px; font: 600 12.5px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: .32em; color: var(--o-dk); text-transform: uppercase; }
+  .eb::after { content: ""; width: 34px; height: 1.5px; background: var(--o); }
+  h2 { margin-top: 22px; font: 800 56px/1.1 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.04em; }
+  .lead { margin-top: 20px; width: 1010px; font: 400 20.5px/1.62 "Plus Jakarta Sans", sans-serif; color: #555; }
+
+  /* dark framework panel */
+  .panel { position: relative; margin-top: 44px; width: 1312px; height: 906px; border-radius: 16px; overflow: hidden;
+    background: radial-gradient(520px 360px at 656px 500px, rgba(242,163,58,.14), transparent 70%), linear-gradient(180deg, #121110, #0B0A09);
+    box-shadow: 0 24px 60px rgba(30,20,5,.25); }
+  .deco { position: absolute; left: 0; top: 0; pointer-events: none; }
+  .fc { position: absolute; border-radius: 10px; padding: 20px 22px; border: 1px solid rgba(255,255,255,.1);
+    background: linear-gradient(180deg, rgba(36,32,28,.85), rgba(20,18,16,.9)); }
+  .fh { display: flex; align-items: center; gap: 16px; }
+  .ib { flex: none; width: 52px; height: 52px; border-radius: 10px; display: grid; place-items: center; border: 1px solid rgba(242,163,58,.45); background: rgba(242,163,58,.08); }
+  .fh b { font: 700 18px/1.2 "Plus Jakarta Sans", sans-serif; color: #FFF; }
+  .fc p { margin-top: 16px; font: 400 15px/1.5 "Plus Jakarta Sans", sans-serif; color: #D6D0C6; }
+  .fc.nodesc p { display: none; }
+  .fc.small p { margin: -14px 0 0 68px; font-size: 13px; }
+  .fc.small .fh { align-items: flex-start; }
+  .fc.small .fh b { margin-top: 8px; }
+  .pills { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pills.col { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 22px; }
+  .pills span { padding: 7px 13px; white-space: nowrap; border-radius: 999px; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.03); font: 500 12.5px/1 "Plus Jakarta Sans", sans-serif; color: #E6E1D8; }
+  .fc.small .pills { margin-top: 16px; }
+  .apis { position: absolute; left: 438px; top: 504px; width: 436px; height: 68px; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 14px;
+    border: 2px solid #F7B54D; background: linear-gradient(180deg, #4A2E0E, #2A1A08 60%, #3A240C);
+    box-shadow: 0 0 0 4px rgba(242,163,58,.12), 0 0 34px 6px rgba(242,163,58,.4); font: 700 18px/1 "Plus Jakarta Sans", sans-serif; color: #FFF; }
+
+  /* competencies */
+  .eb2 { margin-top: 72px; }
+  h3 { margin-top: 22px; font: 800 42px/1.12 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.035em; }
+  h3 span { color: #8E8A84; font-weight: 600; }
+  .row { display: grid; gap: 16px; margin-top: 16px; }
+  .row.r1 { margin-top: 40px; grid-template-columns: repeat(4, 1fr); }
+  .row.r2 { grid-template-columns: 1.17fr 1fr 1.06fr; }
+  .sc { position: relative; display: flex; gap: 22px; padding: 22px 24px; border-radius: 12px; background: #FFF; border: 1px solid #EFEBE4; box-shadow: 0 8px 24px rgba(60,40,10,.04); }
+  .r1 .sc { height: 272px; }
+  .r2 .sc { height: 196px; }
+  .si { flex: none; width: 60px; height: 60px; border-radius: 12px; display: grid; place-items: center; background: #FDF1E3; }
+  .sb { display: flex; flex-direction: column; }
+  .sb strong { display: block; font: 800 38px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.03em;
+    background: linear-gradient(180deg, #E08A1E, #B4600D); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sb strong small { font-size: 24px; letter-spacing: 0; }
+  .sb b { display: block; margin-top: 14px; font: 600 15px/1.3 "Plus Jakarta Sans", sans-serif; color: #111; }
+  .sb p { margin-top: 10px; font: 400 13.5px/1.5 "Plus Jakarta Sans", sans-serif; color: #666; }
+  .sb em { margin-top: auto; padding-top: 12px; font: 500 11px/1.5 "Plus Jakarta Sans", sans-serif; font-style: normal; letter-spacing: .2em; color: #777; }
+</style>
+</head>
+<body>
+  <section class="fw">
+    <div class="eb">The framework</div>
+    <h2>A framework for the third wave of digital.</h2>
+    <p class="lead">Built to advance an enterprise’s continuous evolvability, the framework runs a spine of APIs and microservices through every layer of the business — flanked by the technologies that fortify and monetize it on either side.</p>
+
+    <div class="panel">
+      <svg class="deco" width="1312" height="906" viewBox="0 0 1312 906" fill="none">
+        <defs><filter id="gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <path d="M372 140 H392 Q402 140 402 150 V518 Q402 528 412 528 H432" stroke="#F2A33A" stroke-width="1.6" fill="none" filter="url(#gl)"/><path d="M372 576 H392 Q402 576 402 566 V558 Q402 548 412 548 H432" stroke="#F2A33A" stroke-width="1.6" fill="none" filter="url(#gl)"/><path d="M940 140 H920 Q910 140 910 150 V518 Q910 528 900 528 H880" stroke="#F2A33A" stroke-width="1.6" fill="none" filter="url(#gl)"/><path d="M880 548 H900 Q910 548 910 558 V566 Q910 576 920 576 H940" stroke="#F2A33A" stroke-width="1.6" fill="none" filter="url(#gl)"/><circle cx="372" cy="140" r="4" fill="#FFC56B" filter="url(#gl)"/><circle cx="372" cy="576" r="4" fill="#FFC56B" filter="url(#gl)"/><circle cx="940" cy="140" r="4" fill="#FFC56B" filter="url(#gl)"/><circle cx="940" cy="576" r="4" fill="#FFC56B" filter="url(#gl)"/><circle cx="432" cy="528" r="4" fill="#FFC56B" filter="url(#gl)"/><circle cx="432" cy="548" r="4" fill="#FFC56B" filter="url(#gl)"/><circle cx="880" cy="528" r="4" fill="#FFC56B" filter="url(#gl)"/><circle cx="880" cy="548" r="4" fill="#FFC56B" filter="url(#gl)"/>
+      </svg>
+      
+      <div class="fc " style="left:32px;top:76px;width:340px;height:352px">
+        <div class="fh"><div class="ib"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F2A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><b>Supply Chain Technology</b></div>
+        <p>Fortifies and energizes the supply chain with mobile-first management, automation, and data-driven analytics.</p><div class="pills col"><span>Mobile-first digital interfaces</span><span>API/microservices-first strategy</span><span>Big data &amp; AI predictive analytics</span><span>IoT-enabled automation &amp; robotics</span></div>
+      </div>
+      <div class="fc " style="left:32px;top:490px;width:340px;height:372px">
+        <div class="fh"><div class="ib"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F2A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg></div><b>Marketing Technology</b></div>
+        <p>Runs campaigns efficiently with a unified view of the customer across every channel.</p><div class="pills col"><span>360° view of customer segments</span><span>Unified messaging across channels</span><span>Selective personalization</span><span>Marketing automation</span></div>
+      </div>
+      <div class="fc nodesc" style="left:432px;top:40px;width:448px;height:172px">
+        <div class="fh"><div class="ib"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F2A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.5"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/><path d="M11 7.3 6.6 16.2M13 7.3l4.4 8.9"/></svg></div><b>Emerging Technology Experiences</b></div>
+        <p></p><div class="pills "><span>Chatbots</span><span>Internet of Things</span><span>Voice-based services</span><span>AR / VR</span><span>Connected cars &amp; home</span></div>
+      </div>
+      <div class="fc " style="left:432px;top:228px;width:448px;height:258px">
+        <div class="fh"><div class="ib"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F2A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4.5"/><path d="M19.5 21a7.5 7.5 0 0 0-15 0"/></svg></div><b>Core Digital Customer Platforms</b></div>
+        <p>Builds and modernizes digital presence across channels — mobile, web, in-store, associate apps — with microservices and DevOps underneath.</p><div class="pills "><span>Consumer apps</span><span>Responsive web</span><span>Commerce</span><span>In-store / in-branch</span><span>Associate apps</span></div>
+      </div>
+      <div class="fc small" style="left:416px;top:592px;width:480px;height:150px">
+        <div class="fh"><div class="ib"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F2A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20v-6M12 20V8M18 20V4"/></svg></div><b>Data Technology</b></div>
+        <p>Applies intelligence through data engineering, data science, visualization, and ML Ops.</p><div class="pills "><span>Big data</span><span>Analytics</span><span>Machine learning</span><span>Personalization</span></div>
+      </div>
+      <div class="fc small" style="left:416px;top:758px;width:480px;height:112px">
+        <div class="fh"><div class="ib"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F2A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></div><b>Cloud Technology</b></div>
+        <p>Enables scaling and automation through infrastructure as code, automated provisioning, and CI/CD.</p>
+      </div>
+      <div class="fc " style="left:940px;top:76px;width:340px;height:262px">
+        <div class="fh"><div class="ib"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F2A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><path d="M2 10h20M6 15h4"/></svg></div><b>Payment Technology</b></div>
+        <p>Simplifies payments across digital wallets, payment platforms, and app integrations.</p><div class="pills "><span>Digital wallets</span><span>Payment platforms</span><span>App integration</span><span>Future currencies</span></div>
+      </div>
+      <div class="apis"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFC56B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>APIs &amp; Microservices</div>
+    </div>
+
+    <div class="eb eb2">Seven digital competencies</div>
+    <h3>Seven digital competencies anchor that framework —<br><span>each with its own momentum already underway.</span></h3>
+    <div class="row r1"><div class="sc"><div class="si"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E58A1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></div><div class="sb"><strong>51%</strong><b>eCommerce as a board-level bet</b><p>of retailers name eCommerce platforms among their top three budget priorities for 2021.</p><em>CORE DIGITAL</em></div></div><div class="sc"><div class="si"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E58A1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></div><div class="sb"><strong><small>Over</small> 88%</strong><b>Cloud is the default</b><p>of organizations use cloud infrastructure in one form or another.</p><em>CLOUD TECHNOLOGY</em></div></div><div class="sc"><div class="si"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E58A1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg></div><div class="sb"><strong>90%</strong><b>Data as a strategic asset</b><p>of corporate strategies will explicitly name information as a critical enterprise asset and analytics as an essential competency.</p><em>DATA TECHNOLOGY, BY 2022</em></div></div><div class="sc"><div class="si"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E58A1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 20v-6M12 20V8M18 20V4"/></svg></div><div class="sb"><strong>5,233%</strong><b>The MarTech stack exploded</b><p>increase in the number of MarTech tools since 2011 — bringing the total to 8,000 solutions in 2020.</p><em>MARKETING TECHNOLOGY</em></div></div></div>
+    <div class="row r2"><div class="sc"><div class="si"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E58A1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><div class="sb"><strong>50%</strong><b>AI enters the supply chain</b><p>of supply chain organizations will invest in applications that support AI and advanced analytics capabilities.</p><em>SUPPLY CHAIN TECHNOLOGY, THROUGH 2024</em></div></div><div class="sc"><div class="si"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E58A1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="3.5" r="1.5"/><circle cx="12" cy="20.5" r="1.5"/><circle cx="4.5" cy="8" r="1.5"/><circle cx="19.5" cy="8" r="1.5"/><circle cx="4.5" cy="16" r="1.5"/><circle cx="19.5" cy="16" r="1.5"/><path d="M12 5v4.5M12 14.5V19M6 8.8l3.8 2M14.2 13.2l4 2M6 15.2l3.8-2M14.2 10.8l4-2"/></svg></div><div class="sb"><strong>29%</strong><b>Self-driving goes mainstream</b><p>of the world’s self-driving fleet is expected to be owned in North America.</p><em>EMERGING TECHNOLOGY, BY 2035</em></div></div><div class="sc"><div class="si"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E58A1F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg></div><div class="sb"><strong>$1.4B</strong><b>Digital payments keep compounding</b><p>projected size of the global cryptocurrency market, growing at a CAGR of 4.8%.</p><em>PAYMENT TECHNOLOGY, BY 2027</em></div></div></div>
+  </section>
+</body>
+</html>
