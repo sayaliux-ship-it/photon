@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Three Blocks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --o: #E9961F; --bg: #FBFAF8; --ink: #0F0F0F; --mono: "IBM Plex Mono", ui-monospace, monospace; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); -webkit-font-smoothing: antialiased; }
+  .tb { position: relative; width: 1440px; margin: 0 auto; padding: 100px 64px; overflow: hidden; font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; color: var(--ink);
+    background: radial-gradient(360px 300px at 1230px 180px, rgba(255,214,150,.30), transparent 70%), var(--bg); }
+  .deco { position: absolute; right: 120px; top: 30px; pointer-events: none; }
+  .eb { display: flex; align-items: center; gap: 18px; font: 600 11.5px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #333; }
+  .eb::before { content: ""; width: 32px; height: 1.5px; background: var(--o); }
+  h2 { margin-top: 24px; font: 800 52px/1.1 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.04em; }
+  .lead { margin-top: 20px; width: 640px; font: 400 17.5px/1.55 "Plus Jakarta Sans", sans-serif; color: #555; }
+
+  .blk { position: relative; display: flex; margin-top: 36px; border-radius: 14px; overflow: hidden; }
+  .blk + .blk { margin-top: 12px; }
+  .blk .l { flex: none; width: 338px; padding: 30px 0 0 34px; border-right: 1px solid #E5DFD5; margin: 0 0 28px; }
+  .blk .r { flex: 1; min-width: 0; padding: 28px 34px 28px 46px; }
+  .num { font: 400 13px/1 var(--mono); color: #333; }
+  .blk h3 { margin-top: 22px; font: 800 33px/1.06 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.03em; }
+  .tag { display: inline-block; margin-top: 18px; padding: 8px 14px; border-radius: 4px; border: 1px solid #F0B867; background: #FFF6EA; font: 400 12.5px/1 var(--mono); color: #C27A14; }
+  .desc { font: 400 14.5px/1.55 "Plus Jakarta Sans", sans-serif; color: #444; }
+
+  .b1 { background: #F5F1EB; }
+  .steps { display: flex; align-items: flex-start; margin-top: 16px; }
+  .step { flex: none; width: 138px; }
+  .sc { width: 66px; height: 66px; border-radius: 50%; background: #FFF; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(80,50,10,.08); }
+  .step b { display: block; margin-top: 14px; font: 700 15px/1 "Plus Jakarta Sans", sans-serif; }
+  .step span { display: block; margin-top: 8px; font: 400 14.5px/1.3 "Plus Jakarta Sans", sans-serif; color: #444; }
+  .arr { flex: none; width: 50px; margin: 16px 0 0 0; }
+
+  .b2 { background: #0D0C0B; color: #FFF; }
+  .b2 .l { border-color: rgba(255,255,255,.12); }
+  .b2 .num { color: #DDD; }
+  .b2 .tag { background: transparent; border-color: #E9A84B; color: #F2C27A; }
+  .b2 .desc { color: #EDE7DC; }
+  .pfs { display: grid; grid-template-columns: 1fr 1.03fr 1fr; gap: 12px; margin-top: 16px; }
+  .pf { min-height: 120px; display: flex; gap: 22px; padding: 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,.1); background: linear-gradient(180deg, #1C1A17, #141312); }
+  .pi { flex: none; width: 58px; height: 58px; border-radius: 8px; display: grid; place-items: center; background: linear-gradient(180deg, #4A3416, #2C1F0D); border: 1px solid rgba(242,169,59,.35); }
+  .pf strong { display: block; font: 700 26px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: -.01em; }
+  .pf span { display: block; margin-top: 10px; font: 400 14.5px/1.45 "Plus Jakarta Sans", sans-serif; color: #E6E1D8; }
+  .b2 .arc { position: absolute; left: 0; top: 0; pointer-events: none; }
+
+  .b3 { }
+  .b3 .r { display: flex; gap: 34px; padding-top: 40px; }
+  .b3 .desc { flex: none; width: 290px; margin-top: 4px; font-size: 14.5px; }
+  .stack { position: relative; flex: none; width: 572px; margin-top: -28px; }
+  .stack::before { content: ""; position: absolute; left: -66px; top: 0; width: 70px; height: 176px; background: linear-gradient(90deg, rgba(240,232,220,0), #EEE8DE); clip-path: polygon(100% 0, 100% 100%, 0 100%); }
+  .ly { display: flex; align-items: center; gap: 18px; height: 38px; margin-bottom: 8px; border-radius: 3px; background: #EFEDEA; font: 400 13.5px/1 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .ly.hot { background: #FCF0DE; }
+  .lk { flex: none; width: 120px; height: 100%; display: flex; align-items: center; padding-left: 26px; font: 500 14.5px/1 "Plus Jakarta Sans", sans-serif; color: #111; background: rgba(0,0,0,.03); }
+  .ly.hot .lk { color: var(--o); background: rgba(233,150,31,.08); }
+
+  .rule { margin-top: 12px; height: 1px; background: #E8E3DA; }
+  .ex-row { display: flex; align-items: center; gap: 26px; margin-top: 16px; }
+  .ex-h { flex: none; width: 316px; }
+  .ex-h h4 { margin-top: 14px; font: 800 30px/1.08 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.035em; }
+  .ex-h .eb { font-size: 10.5px; letter-spacing: .16em; }
+  .ex { flex: 1; display: flex; gap: 20px; min-height: 104px; padding: 16px 20px; border-radius: 6px; background: #FFF; border: 1px solid #E8E3DA; }
+  .ex > svg, .ly > svg { flex: none; }
+  .ex b { display: block; font: 700 14px/1 "Plus Jakarta Sans", sans-serif; }
+  .ex span { display: block; margin-top: 8px; font: 400 13px/1.45 "Plus Jakarta Sans", sans-serif; color: #666; }
+</style>
+</head>
+<body>
+  <section class="tb">
+    <svg class="deco" width="300" height="280" viewBox="0 0 300 280" fill="none">
+      <defs><filter id="cg" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <path d="M150 0 V280" stroke="rgba(235,175,90,.25)"/>
+      <polygon points="40,190 150,246 150,256 40,200" fill="rgba(240,180,90,0.12)" stroke="rgba(235,175,90,0.35)"/><polygon points="260,190 150,246 150,256 260,200" fill="rgba(240,190,110,0.09)" stroke="rgba(235,175,90,0.35)"/><polygon points="150,134 260,190 150,246 40,190" fill="rgba(255,236,200,0.21)" stroke="rgba(235,175,90,0.35)"/><polygon points="40,140 150,196 150,206 40,150" fill="rgba(240,180,90,0.16)" stroke="rgba(235,175,90,0.45)"/><polygon points="260,140 150,196 150,206 260,150" fill="rgba(240,190,110,0.11)" stroke="rgba(235,175,90,0.45)"/><polygon points="150,84 260,140 150,196 40,140" fill="rgba(255,236,200,0.27)" stroke="rgba(235,175,90,0.45)"/><g filter="url(#cg)"><polygon points="110,112 150,134 150,174 110,152" fill="rgba(240,180,90,0.33)" stroke="rgba(235,175,90,0.95)"/><polygon points="190,112 150,134 150,174 190,152" fill="rgba(240,190,110,0.24)" stroke="rgba(235,175,90,0.95)"/><polygon points="150,90 190,112 150,134 110,112" fill="rgba(255,214,140,0.9)" stroke="rgba(235,175,90,0.95)"/></g><polygon points="40,82 150,138 150,148 40,92" fill="rgba(240,180,90,0.14)" stroke="rgba(235,175,90,0.40)"/><polygon points="260,82 150,138 150,148 260,92" fill="rgba(240,190,110,0.10)" stroke="rgba(235,175,90,0.40)"/><polygon points="150,26 260,82 150,138 40,82" fill="rgba(255,236,200,0.24)" stroke="rgba(235,175,90,0.40)"/>
+    </svg>
+
+    <div class="eb">How Photon delivers it</div>
+    <h2>The strategy rests on three blocks.</h2>
+    <p class="lead">Each one answers a different question: how fast can we start, how much of this have you already solved for us, and will it still be standing when the platforms underneath it change.</p>
+
+    <div class="blk b1">
+      <div class="l"><div class="num">01</div><h3>Differentiated<br>methods</h3><span class="tag">Speed to first value</span></div>
+      <div class="r">
+        <p class="desc" style="max-width:650px">A four-week Accelerator followed by a two-month Jumpstart, run on a sprint-based agile roadmap — with the proprietary PATH framework ensuring every solution stays aligned to your values and ethical guidelines along the way.</p>
+        <div class="steps"><div class="step"><div class="sc"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M8 11h8M8 15h8M8 19h5"/></svg></div><b>01</b><span>Use case definition</span></div><div class="arr"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></div><div class="step"><div class="sc"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg></div><b>02</b><span>Data collection &amp; prep</span></div><div class="arr"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></div><div class="step"><div class="sc"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="3.5" r="1.5"/><circle cx="12" cy="20.5" r="1.5"/><circle cx="4.5" cy="8" r="1.5"/><circle cx="19.5" cy="8" r="1.5"/><circle cx="4.5" cy="16" r="1.5"/><circle cx="19.5" cy="16" r="1.5"/><path d="M12 5v4.5M12 14.5V19M6 8.8l3.8 2M14.2 13.2l4 2M6 15.2l3.8-2M14.2 10.8l4-2"/></svg></div><b>03</b><span>Model identification</span></div><div class="arr"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></div><div class="step"><div class="sc"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6-6 6 6 6"/><path d="m16 6 6 6-6 6"/><path d="m14 3-4 18"/></svg></div><b>04</b><span>Development &amp; testing</span></div><div class="arr"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></div><div class="step"><div class="sc"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div><b>05</b><span>Model validation</span></div></div>
+      </div>
+    </div>
+
+    <div class="blk b2">
+      <svg class="arc" width="1312" height="222" viewBox="0 0 1312 222" fill="none">
+        <defs><linearGradient id="a1" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#E9A84B" stop-opacity="0"/><stop offset=".5" stop-color="#E9A84B" stop-opacity=".7"/><stop offset="1" stop-color="#E9A84B" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 190 C 120 168, 240 176, 340 200" stroke="url(#a1)" stroke-width="1.5"/>
+        <path d="M0 222 C 120 190, 240 190, 340 222 Z" fill="rgba(233,168,75,.06)"/>
+        <path d="M1010 60 C 1100 20, 1200 0, 1312 -10" stroke="url(#a1)" stroke-width="1.2"/>
+      </svg>
+      <div class="l"><div class="num">02</div><h3>Pre-contextualized<br>models</h3><span class="tag">Already solved, for your industry</span></div>
+      <div class="r">
+        <p class="desc">Models tested in production through Photon’s own AI Hub — tuned to a value chain, specific to an industry, and infused directly into existing use case chains rather than bolted on beside them.</p>
+        <div class="pfs"><div class="pf"><div class="pi"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" color="#F2A93B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" fill="currentColor"/></svg></div><div><strong>4x</strong><span>Faster candidate shortlisting, with a pre-trained NLP scoring model</span></div></div><div class="pf"><div class="pi"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" color="#F2A93B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><div><strong>TIBCO → µS</strong><span>Legacy code transformed into modern microservices</span></div></div><div class="pf"><div class="pi"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F2A93B" color="#F2A93B" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 17 6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div><div><strong>↑ CSAT</strong><span>Hospitality chatbot + personalization engine</span></div></div></div>
+      </div>
+    </div>
+
+    <div class="blk b3">
+      <div class="l"><div class="num">03</div><h3>Future-proof<br>architectures</h3><span class="tag">Built to outlast the platform layer</span></div>
+      <div class="r">
+        <p class="desc">A modular “compose &amp; assemble” blueprint, so swapping an LLM provider or adding a new tool next year doesn’t mean re-engineering the whole system.</p>
+        <div class="stack"><div class="ly hot"><div class="lk">L4 &nbsp;·&nbsp; UX</div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>Chatbots, copilots, contact center, custom UI</span></div><div class="ly hot"><div class="lk">L3 &nbsp;·&nbsp; Dist.</div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg><span>COTS products + domain-specific AI startups, via RAG</span></div><div class="ly"><div class="lk">L2 &nbsp;·&nbsp; Models</div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C27A14" color="#C27A14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg><span>Gemini, GPT-4/Azure, Anthropic, Cohere, Mistral…</span></div><div class="ly"><div class="lk">L1 &nbsp;·&nbsp; Data</div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C27A14" color="#C27A14" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/><path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/></svg><span>Data lake, warehouse, code &amp; document repos</span></div></div>
+      </div>
+    </div>
+
+    <div class="rule"></div>
+    <div class="ex-row">
+      <div class="ex-h"><div class="eb">Real-world impact</div><h4>Illustrative examples<br>across industries.</h4></div>
+      <div class="ex"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9v12h14V9"/><path d="M10 21v-6h4v6"/></svg><div><b>Home health care</b><span>Unlocked data trapped inside an EHS system to feed an LLM that generates accurate patient care summaries.</span></div></div><div class="ex"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></svg><div><b>Airlines</b><span>Curated risk data into an LLM to surface safety insights that cut incidents and sharpen operational protocols.</span></div></div><div class="ex"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#E9961F" color="#E9961F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M12 3 3.5 8.5h17z"/><path d="M6.5 10v8M10.5 10v8M13.5 10v8M17.5 10v8"/></svg><div><b>Banking</b><span>A unified data governance framework across systems, powering fraud detection and more personalized service.</span></div></div>
+    </div>
+  </section>
+</body>
+</html>
