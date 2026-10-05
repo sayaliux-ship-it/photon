@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Seven Facets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --gold: #B8874A; --ink: #121212; --muted: #6E6A64; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #F4F2EE; -webkit-font-smoothing: antialiased; font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; color: var(--ink); }
+  section { position: relative; width: 1440px; margin: 0 auto; padding: 100px 64px; overflow: hidden; }
+  .eb { display: flex; align-items: center; gap: 18px; font: 500 11px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: .16em; text-transform: uppercase; color: #555; }
+  .eb::before { content: ""; width: 38px; height: 2px; background: #1A1A1A; }
+  .s2 .eb::before { background: var(--gold); }
+  h2 { margin-top: 24px; font: 700 54px/1.06 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.035em; }
+  .lead { margin-top: 22px; width: 620px; font: 400 17px/1.55 "Plus Jakarta Sans", sans-serif; color: #7A766F; letter-spacing: .01em; }
+  .ar { display: block; }
+
+  /* section 1 */
+  .s1 { background: radial-gradient(500px 420px at 1300px 160px, rgba(230,214,190,.55), transparent 70%), #F4F2EE; }
+  .orb { position: absolute; right: -150px; top: -120px; pointer-events: none; }
+  .note { position: absolute; left: 1050px; top: 160px; font: 500 12px/2.1 "Plus Jakarta Sans", sans-serif; letter-spacing: .3em; color: #222; }
+  .note::after { content: ""; display: block; margin-top: 14px; width: 38px; height: 1.5px; background: var(--gold); }
+  .grid { position: relative; margin-top: 40px; display: grid; grid-template-columns: 489px 451px 372px; grid-template-rows: 206px 200px 196px 190px; border: 1px solid #E1DCD3; }
+  .cell { position: relative; padding: 28px 34px; background: #F8F7F4; border-right: 1px solid #E1DCD3; border-bottom: 1px solid #E1DCD3; }
+  .cell.empty { background: #ECEAE5; }
+  .cell i { font: 700 12px/1 "Plus Jakarta Sans", sans-serif; font-style: normal; color: #9A6B2E; letter-spacing: .04em; }
+  .cell b { display: block; margin-top: 14px; font: 600 20.5px/1.2 "Plus Jakarta Sans", sans-serif; letter-spacing: -.01em; }
+  .cell p { margin-top: 8px; width: 360px; font: 400 15px/1.5 "Plus Jakarta Sans", sans-serif; color: var(--muted); }
+  .cell .ar { position: absolute; left: 34px; bottom: 22px; }
+  .dark { grid-column: 3; grid-row: 1 / span 4; position: relative; overflow: hidden; background: #0C0B0A; }
+  .dark .tx { position: absolute; left: 52px; bottom: 112px; font: 500 13px/2.05 "Plus Jakarta Sans", sans-serif; letter-spacing: .3em; color: #F2EEE6; }
+  .dark .tx::before { content: ""; display: block; margin-bottom: 18px; width: 38px; height: 1.5px; background: var(--gold); }
+
+  /* section 2 */
+  .s2 { background: #EEE6D9; }
+  .s2 h2 { font-size: 44px; }
+  .s2 .lead { color: #77706A; }
+  .nav { position: absolute; right: 88px; top: 166px; display: flex; gap: 16px; }
+  .nav span { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; }
+  .nav .prev { border: 1.5px solid #C8A878; }
+  .nav .next { background: #B98A4B; }
+  .cls { margin-top: 30px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .cl { border-radius: 4px; overflow: hidden; background: #F8F5F0; box-shadow: 0 8px 22px rgba(80,55,20,.06); }
+  .ph { position: relative; height: 158px; overflow: hidden; }
+  .ph svg { position: absolute; inset: 0; }
+  .wm { position: absolute; left: 0; right: 0; text-align: center; }
+  .cb { position: relative; height: 170px; padding: 22px 24px; }
+  .cb b { font: 600 16px/1 "Plus Jakarta Sans", sans-serif; }
+  .cb p { margin-top: 10px; font: 400 14.5px/1.5 "Plus Jakarta Sans", sans-serif; color: #77706A; }
+  .cb .ar { position: absolute; left: 24px; bottom: 22px; }
+</style>
+</head>
+<body>
+  <section class="s1">
+    <svg class="orb" width="620" height="760" viewBox="0 0 620 760" fill="none">
+      <defs>
+        <radialGradient id="sph" cx=".3" cy=".35" r=".8"><stop offset="0" stop-color="#3A332A"/><stop offset=".6" stop-color="#14120F"/><stop offset="1" stop-color="#0A0908"/></radialGradient>
+        <radialGradient id="pale" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#FBF7EF"/><stop offset="1" stop-color="#E2D6C3"/></radialGradient>
+        <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6DDB0" stop-opacity="0"/><stop offset=".6" stop-color="#F6DDB0"/><stop offset="1" stop-color="#C99A55" stop-opacity=".4"/></linearGradient>
+      </defs>
+      <circle cx="400" cy="320" r="320" fill="url(#pale)" opacity=".85"/>
+      <circle cx="570" cy="400" r="270" fill="url(#sph)"/>
+      <path d="M330 520 A270 270 0 0 1 640 140" stroke="url(#rim)" stroke-width="2"/>
+    </svg>
+    <div class="note">CONNECTED LIFECYCLES.<br>GREATER IMPACT.</div>
+
+    <div class="eb">Where the work happens</div>
+    <h2>Seven facets of digital<br>lifecycle management.</h2>
+    <p class="lead">DHX isn’t one initiative — it’s a set of lifecycles running in parallel, each one compounding the others.</p>
+
+    <div class="grid">
+      <div class="cell"><i>01</i><b>Brand Campaign Lifecycle</b><p>Creating powerful brand campaigns that truly connect with consumers in the time of “Digital Living.”</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div><div class="cell"><i>02</i><b>Brand Lifecycle</b><p>Creating enduring brands and sunsetting the ones that have outlived their relevance.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div><div class="cell"><i>03</i><b>App Development Lifecycle</b><p>Building and enhancing an app to win customer loyalty and drive digital revenue.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div><div class="cell"><i>04</i><b>Partner Lifecycle</b><p>Creating the right partner ecosystem, with APIs as an integration method of choice.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div><div class="cell"><i>05</i><b>Customer Lifecycle</b><p>Understanding customer needs and preferences to deliver superior CX.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div><div class="cell"><i>06</i><b>Product Lifecycle</b><p>Utilizing data and analytics to spur product development and innovation.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div><div class="cell"><i>07</i><b>Infrastructure Lifecycle</b><p>Modernizing your infrastructure, applications, and workloads with the cloud.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div><div class="cell empty"></div>
+      <div class="dark">
+        <svg width="372" height="792" viewBox="0 0 372 792" fill="none" style="position:absolute;inset:0">
+          <defs>
+            <radialGradient id="moon" cx=".75" cy=".3" r=".85"><stop offset="0" stop-color="#F3E3C6"/><stop offset=".35" stop-color="#A88A5E"/><stop offset=".7" stop-color="#2A241D"/><stop offset="1" stop-color="#0C0B0A"/></radialGradient>
+            <linearGradient id="r2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F6DDB0" stop-opacity=".1"/><stop offset=".5" stop-color="#F6DDB0"/><stop offset="1" stop-color="#C99A55" stop-opacity=".2"/></linearGradient>
+          </defs>
+          <circle cx="420" cy="300" r="250" fill="url(#moon)"/>
+          <circle cx="400" cy="330" r="236" fill="#0C0B0A" opacity=".75"/>
+          <path d="M110 330 C 110 200, 230 120, 372 110" stroke="url(#r2)" stroke-width="1.2"/>
+          <path d="M120 330 C 140 470, 260 560, 372 590" stroke="url(#r2)" stroke-width="1.2"/>
+        </svg>
+        <div class="tx">SEVEN LIFECYCLES.<br>ONE COMPOUNDING<br>IMPACT.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="s2">
+    <div class="eb">What “good” looks like</div>
+    <h2>Clients already running the Third Wave.</h2>
+    <p class="lead">Photon’s industry-leading clients have unlocked the evolutionary capabilities of their digital platforms to succeed in the Third Wave of Digital.</p>
+    <div class="nav">
+      <span class="prev"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B8874A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12H4"/><path d="m10 6-6 6 6 6"/></svg></span>
+      <span class="next"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span>
+    </div>
+    <div class="cls"><div class="cl"><div class="ph" style="background:linear-gradient(180deg,#1A1B1E,#0B0B0C)"><svg width="100%" height="100%" viewBox="0 0 322 158" preserveAspectRatio="none"><rect y="98" width="322" height="60" fill="#121212"/><rect x="14" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="60" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="106" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="152" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="198" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="244" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="290" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/></svg><span class="wm" style="font:800 30px/1 Inter,sans-serif;letter-spacing:.12em;color:#F2F2F2;top:44px">SAMSUNG</span></div><div class="cb"><b>Samsung</b><p>Rebuilds their eCommerce platform to meet new demands in the Digital HyperExpansion Era.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div></div><div class="cl"><div class="ph" style="background:linear-gradient(180deg,#5E6E86 0%,#9AA2AE 45%,#3A3633 46%,#2A2522 100%)"><svg width="100%" height="100%" viewBox="0 0 322 158" preserveAspectRatio="none"><rect x="14" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="60" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="106" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="152" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="198" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="244" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/><rect x="290" y="112" width="34" height="46" fill="rgba(255,230,190,.55)"/></svg><span class="wm" style="font:italic 700 34px/1 Georgia,serif;color:#E2262E;top:40px;transform:rotate(-6deg)">Walgreens</span></div><div class="cb"><b>Walgreens</b><p>The Walgreens Find Care™ platform enables telehealth services amid the COVID-19 pandemic.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div></div><div class="cl"><div class="ph" style="background:radial-gradient(160px 140px at 80% 40%, #6A2A12, #2A0F07 70%)"><svg width="100%" height="100%" viewBox="0 0 322 158" preserveAspectRatio="none"><path d="M250 0 C 236 40, 230 60, 236 158 L300 158 C 306 60, 296 40, 284 0Z" fill="rgba(60,20,8,.9)" stroke="rgba(255,190,140,.35)"/></svg><span class="wm" style="font:italic 400 32px/1 Georgia,serif;color:#FFF;top:52px;left:24px">Coca-Cola</span></div><div class="cb"><b>Coca-Cola HBC</b><p>Transforms their B2B ordering platform into a holistic customer portal.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div></div><div class="cl"><div class="ph" style="background:linear-gradient(180deg,#24272A,#15171A)"><svg width="100%" height="100%" viewBox="0 0 322 158" preserveAspectRatio="none"><path d="M150 118 Q 160 158 230 158 L322 158 L322 118Z" fill="#EDEBE7"/><rect x="250" y="20" width="4" height="96" fill="#E8C690" opacity=".7"/></svg><span class="wm" style="font:800 22px/1 Inter,sans-serif;letter-spacing:.02em;color:#FFF;top:40px;left:42px">KOHLER</span></div><div class="cb"><b>Kohler</b><p>Reimagines customer engagement across touchpoints in the Third Wave of Digital.</p><span class="ar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#9A6B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h17"/><path d="m14 6 6 6-6 6"/></svg></span></div></div></div>
+  </section>
+</body>
+</html>
