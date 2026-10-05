@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Business and Human Value</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --o: #F5A33A; --o2: #F6B14E; --ink: #111; --g: #555; --cream: #FDF4E6; --gray: #F5F4F1; --dark: #111111; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; color: var(--ink); font-family: "Plus Jakarta Sans", Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  .page { width: 1440px; margin: 0 auto; overflow: hidden; }
+  section { position: relative; width: 1440px; padding: 0 64px; }
+  .eb { display: flex; gap: 18px; font: 600 13px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #333; }
+  .eb i { font-style: normal; color: var(--o); }
+  .dark .eb { color: #E6E1D8; }
+  h2 { font: 800 42px/1.12 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.025em; color: var(--ink); }
+  .dark h2 { color: #FFF; }
+  .acc { color: var(--o); }
+  .btn { display: inline-flex; align-items: center; height: 60px; padding: 0 34px; border-radius: 6px; font: 700 15px/1 "Plus Jakarta Sans", sans-serif; }
+  .btn.fill { background: var(--o2); color: #111; }
+  .btn.line { border: 1.5px solid rgba(255,255,255,.75); color: #FFF; }
+  .qm { font: 800 64px/.8 Georgia, serif; color: var(--o); }
+
+  /* nav */
+  .nav { height: 72px; background: #161616; display: flex; align-items: center; padding: 0 30px; }
+  .logo { display: flex; align-items: center; gap: 10px; }
+  .logo span { font: 700 19px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: .14em; color: #FFF; }
+  .links { display: flex; gap: 48px; margin-left: 110px; font: 600 15px/1 "Plus Jakarta Sans", sans-serif; color: #FFF; }
+  .links span { display: inline-flex; align-items: center; gap: 4px; }
+  .nav .cta { margin-left: auto; font: 700 15px/1 "Plus Jakarta Sans", sans-serif; color: var(--o); }
+
+  /* hero */
+  .hero { height: 572px; background: linear-gradient(180deg, #1A1A1A, #262626); padding: 0 39px; }
+  .hcard { position: relative; height: 486px; top: 47px; border-radius: 14px; overflow: hidden;
+    background: radial-gradient(500px 380px at 1040px 243px, rgba(245,163,58,.18), transparent 70%), #070605; border: 1px solid rgba(255,255,255,.06); }
+  .hero-art { position: absolute; right: 40px; top: 0; }
+  .hcopy { position: absolute; left: 58px; top: 52px; width: 680px; }
+  .hcopy .tag { font: 600 14px/1 "Plus Jakarta Sans", sans-serif; color: var(--o); letter-spacing: .02em; }
+  .hcopy h1 { margin-top: 30px; font: 800 56px/1.1 "Plus Jakarta Sans", sans-serif; letter-spacing: -0.025em; color: #FFF; }
+  .hcopy p { margin-top: 22px; width: 640px; font: 400 19px/1.5 "Plus Jakarta Sans", sans-serif; color: #E9E4DB; }
+  .hcopy .ctas { margin-top: 34px; display: flex; gap: 22px; }
+
+  /* 01 */
+  .intro { height: 522px; display: flex; gap: 100px; padding-top: 50px; }
+  .intro .l { width: 660px; }
+  .intro h2 { margin-top: 42px; }
+  .intro p { margin-top: 26px; font: 400 16.5px/1.6 "Plus Jakarta Sans", sans-serif; color: #444; }
+  .intro .q { margin-top: 12px; width: 580px; height: 390px; border-radius: 12px; background: var(--cream); padding: 50px 60px; }
+  .q blockquote { margin-top: 14px; font: 700 27px/1.45 "Plus Jakarta Sans", sans-serif; color: #1A1A1A; }
+  .q b { display: block; margin-top: 54px; font: 700 15px/1 "Plus Jakarta Sans", sans-serif; }
+  .q small { display: block; margin-top: 10px; font: 400 14.5px/1 "Plus Jakarta Sans", sans-serif; color: #555; }
+
+  /* 02 */
+  .frame { height: 540px; background: var(--gray); padding-top: 46px; }
+  .frame .l { width: 470px; }
+  .frame h2 { margin-top: 30px; }
+  .frame p.d { margin-top: 22px; font: 400 18px/1.5 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .frame .eq { margin-top: 30px; width: 450px; height: 140px; border-radius: 10px; background: var(--cream); padding: 30px 36px; font: 700 23px/1.45 "Plus Jakarta Sans", sans-serif; color: #C77812; }
+  .venn { position: absolute; left: 557px; top: 52px; width: 846px; height: 440px; }
+  .vc { position: absolute; top: 10px; width: 420px; height: 420px; border-radius: 50%; border: 1.5px solid rgba(245,163,58,.7);
+    background: radial-gradient(circle at 50% 50%, #FFFFFF 40%, #FBF5EA); display: flex; flex-direction: column; align-items: center; padding-top: 48px; }
+  .vc h4 { margin: 14px 0 18px; font: 700 22px/1 "Plus Jakarta Sans", sans-serif; }
+  .pill { display: block; margin-bottom: 11px; min-width: 260px; padding: 9px 22px; text-align: center; border-radius: 6px; background: #F8EFE1; font: 400 15px/1 "Plus Jakarta Sans", sans-serif; color: #333; }
+  .diamond { position: absolute; left: 400px; top: 196px; width: 46px; height: 46px; transform: rotate(45deg);
+    background: linear-gradient(135deg, #FFD08A, #F08A1C); box-shadow: 0 0 30px 12px rgba(245,163,58,.5); border-radius: 4px; }
+
+  /* 03 */
+  .pill3 { height: 497px; padding-top: 46px; }
+  .pill3 h2 { margin-top: 30px; }
+  .pcards { margin-top: 46px; display: flex; gap: 30px; }
+  .pcard { width: 424px; height: 274px; display: flex; gap: 28px; padding: 38px 30px; border-radius: 10px; border: 1px solid #ECE9E3; background: #FFF; box-shadow: 0 6px 20px rgba(0,0,0,.04); }
+  .pcard > svg, .sec-h > svg, .ck > svg { flex: none; }
+  .pcard h4 { font: 700 24px/1 "Plus Jakarta Sans", sans-serif; margin-top: 4px; }
+  .pcard p { margin-top: 18px; font: 400 15.5px/1.6 "Plus Jakarta Sans", sans-serif; color: #555; }
+
+  /* 04 */
+  .cavu { height: 643px; background: var(--dark); padding-top: 46px; }
+  .cavu h2 { margin-top: 30px; }
+  .cavu .sub { margin-top: 14px; font: 400 19px/1.4 "Plus Jakarta Sans", sans-serif; color: #E6E1D8; }
+  .cvs { margin-top: 40px; display: flex; gap: 30px; }
+  .cv { position: relative; width: 424px; height: 424px; border-radius: 12px; background: #1E1E1E; padding: 34px 28px; }
+  .cv-n { position: absolute; left: 28px; top: 34px; width: 46px; height: 46px; border-radius: 50%; background: var(--o); display: grid; place-items: center; font: 700 20px/1 "Plus Jakarta Sans", sans-serif; color: #111; }
+  .cv-h { margin-left: 72px; display: flex; align-items: center; gap: 16px; height: 46px; }
+  .cv-h b { font: 700 19px/1 "Plus Jakarta Sans", sans-serif; color: #FFF; }
+  .cv p { margin: 18px 0 0 116px; width: 280px; font: 400 15.5px/1.55 "Plus Jakarta Sans", sans-serif; color: #D8D2C8; }
+  .cv-box { position: absolute; left: 28px; right: 28px; bottom: 30px; height: 156px; border-radius: 8px; background: #141414; padding: 30px 84px; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+  .cv-box small { font: 400 15px/1.3 "Plus Jakarta Sans", sans-serif; color: #E6E1D8; }
+  .cv-box strong { font: 800 42px/1.1 "Plus Jakarta Sans", sans-serif; color: var(--o); }
+  .cv-box.list { padding: 20px 28px; gap: 16px; }
+  .ck { display: flex; align-items: center; gap: 22px; font: 400 15.5px/1 "Plus Jakarta Sans", sans-serif; color: #E6E1D8; }
+
+  /* 05 */
+  .act { height: 500px; padding-top: 46px; }
+  .act h2 { margin-top: 30px; font-size: 32px; }
+  .act .note { position: absolute; left: 1094px; top: 46px; width: 290px; font: 400 14px/1.5 "Plus Jakarta Sans", sans-serif; color: #555; }
+  .ring { position: absolute; top: 166px; width: 256px; height: 256px; border-radius: 50%; border: 1.5px solid rgba(245,163,58,.55); background: rgba(255,255,255,.75);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 4px; }
+  .ring b { margin-top: 8px; font: 700 20px/1 "Plus Jakarta Sans", sans-serif; }
+  .ring span { margin-top: 6px; font: 400 14.5px/1.4 "Plus Jakarta Sans", sans-serif; color: #555; }
+  .core { position: absolute; left: 589px; top: 160px; width: 264px; height: 264px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+    background: radial-gradient(circle at 50% 40%, #2E2A26, #111 70%); box-shadow: 0 0 0 6px rgba(245,163,58,.15), 0 0 50px 14px rgba(245,163,58,.4); z-index: 2; }
+  .core b { font: 700 30px/1.2 "Plus Jakarta Sans", sans-serif; color: #FFF; }
+  .core span { margin-top: 20px; font: 400 15px/1.4 "Plus Jakarta Sans", sans-serif; color: #E6E1D8; }
+  .dbl { position: absolute; top: 280px; font: 400 28px/1 "Plus Jakarta Sans", sans-serif; color: var(--o); z-index: 3; }
+
+  /* 06 */
+  .ind { height: 475px; background: var(--gray); padding-top: 46px; }
+  .ind h2 { margin-top: 30px; font-size: 38px; }
+  .secs { margin-top: 40px; display: flex; gap: 26px; }
+  .sec { width: 308px; height: 292px; border-radius: 10px; background: #FFF; padding: 30px 30px; box-shadow: 0 6px 20px rgba(0,0,0,.04); }
+  .sec-h { display: flex; gap: 18px; }
+  .sec-h b { display: block; font: 700 17px/1.2 "Plus Jakarta Sans", sans-serif; }
+  .sec-h span { display: block; margin-top: 6px; font: 400 14.5px/1.4 "Plus Jakarta Sans", sans-serif; color: #555; }
+  .stat { margin-top: 26px; }
+  .stat strong { display: block; font: 800 27px/1 "Plus Jakarta Sans", sans-serif; letter-spacing: -.01em; }
+  .stat small { display: block; margin-top: 10px; font: 400 14px/1 "Plus Jakarta Sans", sans-serif; color: #555; }
+
+  /* 07 */
+  .concl { height: 410px; background: #0E0E0E; padding-top: 48px; }
+  .concl h2 { margin-top: 30px; font-size: 40px; }
+  .concl p { margin-top: 26px; width: 740px; font: 400 16.5px/1.6 "Plus Jakarta Sans", sans-serif; color: #E6E1D8; }
+  .concl .btn { margin-top: 30px; }
+  .concl .q { position: absolute; left: 885px; top: 56px; width: 493px; height: 286px; border-radius: 12px; background: #1E1E1E; padding: 40px 48px; }
+  .concl .q blockquote { position: absolute; left: 98px; top: 52px; width: 340px; margin: 0; font: 600 21px/1.55 "Plus Jakarta Sans", sans-serif; color: #FFF; }
+  .concl .q .who { position: absolute; left: 98px; top: 190px; }
+  .concl .q b { margin: 0; color: #FFF; }
+  .concl .q small { color: #CFC8BC; }
+
+  /* footer */
+  .foot { height: 86px; background: #161616; display: flex; align-items: center; padding: 0 64px; border-top: 1px solid rgba(255,255,255,.08); }
+  .foot .links { margin-left: 196px; gap: 50px; font-weight: 500; font-size: 14.5px; }
+  .social { margin-left: auto; display: flex; align-items: center; gap: 30px; color: #FFF; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <nav class="nav">
+    <div class="logo"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#F5A33A" stroke-width="2.2"><path d="M17 2.5 29.5 9.75v14.5L17 31.5 4.5 24.25V9.75z"/><circle cx="17" cy="17" r="6"/></svg><span>PHOTON</span></div>
+    <div class="links"><span>Consulting</span><span>Platform</span><span>Industries</span><span>Insights</span><span>About</span><span>Careers <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg></span></div>
+    <span class="cta">Talk to Our Team →</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hcard">
+      <svg class="hero-art" width="640" height="486" viewBox="0 0 640 486" fill="none">
+  <defs>
+    <radialGradient id="cg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#FFC56B" stop-opacity=".9"/><stop offset=".35" stop-color="#F5A33A" stop-opacity=".35"/><stop offset="1" stop-color="#F5A33A" stop-opacity="0"/></radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5A33A" stop-opacity="0"/><stop offset=".5" stop-color="#FFC56B" stop-opacity=".9"/><stop offset="1" stop-color="#F5A33A" stop-opacity="0"/></linearGradient>
+    <linearGradient id="ft" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE0A8"/><stop offset="1" stop-color="#E58A1F"/></linearGradient>
+    <linearGradient id="fl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F5A33A" stop-opacity=".85"/><stop offset="1" stop-color="#7A3E08" stop-opacity=".7"/></linearGradient>
+    <linearGradient id="fr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C46A12" stop-opacity=".85"/><stop offset="1" stop-color="#3A1C04" stop-opacity=".8"/></linearGradient>
+    <filter id="gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+  <circle cx="330" cy="243" r="210" fill="url(#cg)"/>
+  <rect x="328" y="0" width="4" height="486" fill="url(#beam)" opacity=".7"/>
+  <path d="M330 243 C 270 120, 70 110, 70 243 C 70 376, 270 366, 330 243 C 390 120, 590 110, 590 243 C 590 376, 390 366, 330 243 Z" stroke="#F5A33A" stroke-width="1.6" opacity=".75" filter="url(#gl)"/>
+  <path d="M330 243 C 280 140, 92 132, 92 243 C 92 354, 280 346, 330 243 C 380 140, 568 132, 568 243 C 568 354, 380 346, 330 243 Z" stroke="#F5A33A" stroke-width=".8" opacity=".3"/>
+  <g filter="url(#gl)">
+    <polygon points="330,160 402,201 330,242 258,201" fill="url(#ft)" opacity=".95"/>
+    <polygon points="258,201 330,242 330,326 258,285" fill="url(#fl)"/>
+    <polygon points="402,201 330,242 330,326 402,285" fill="url(#fr)"/>
+    <path d="M330 160 402 201 402 285 330 326 258 285 258 201Z M330 242V326M258 201l72 41 72-41" stroke="#FFD58C" stroke-width="1.4"/>
+  </g>
+  <text x="120" y="238" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="17" fill="#fff" letter-spacing=".5">BUSINESS</text>
+  <text x="120" y="260" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="17" fill="#fff" letter-spacing=".5">VALUE</text>
+  <text x="440" y="238" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="17" fill="#fff" letter-spacing=".5">HUMAN</text>
+  <text x="440" y="260" font-family="Plus Jakarta Sans, sans-serif" font-weight="700" font-size="17" fill="#fff" letter-spacing=".5">VALUE</text>
+</svg>
+      <div class="hcopy">
+        <div class="tag">PRIVATE &amp; CONFIDENTIAL — PHOTON WHITEPAPER OVERVIEW</div>
+        <h1>Unlocking Business<br>&amp; <span class="acc">Human Value</span></h1>
+        <p>Reimagining ROI for AI initiatives. The metrics you choose decide what your AI program becomes — so Photon built a framework for the value a spreadsheet can’t see.</p>
+        <div class="ctas"><a class="btn fill">Download the full whitepaper →</a><a class="btn line">Read the overview</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01 INTRODUCTION -->
+  <section class="intro">
+    <div class="l">
+      <div class="eb"><i>01.</i>Introduction</div>
+      <h2>ROI is not <span class="acc">enough.</span></h2>
+      <p>Too many AI initiatives are judged only by narrow, short-term ROI measures. But the real opportunity is bigger. AI also enables smarter decisions, lower burnout, and stronger engagement — unlocking value for both the business and the people who make it work.</p>
+      <p style="margin-top:22px">Consider a call center: AI can resolve routine inquiries, giving agents more time for complex, meaningful conversations. The result is higher customer satisfaction and a better work experience — value that won’t show up in a simple ROI calculation, but is real and measurable.</p>
+    </div>
+    <div class="q">
+      <div class="qm">“</div>
+      <blockquote>The question isn’t whether AI delivers ROI — it’s whether we’re asking the right ROI questions.</blockquote>
+      <b>Mukund Balasubramanian</b><small>Co-Founder &amp; CTO, Photon</small>
+    </div>
+  </section>
+
+  <!-- 02 FRAMEWORK -->
+  <section class="frame">
+    <div class="l">
+      <div class="eb"><i>02.</i>The framework</div>
+      <h2>Dollars &amp; cents<br><span class="acc">to dollars &amp; sense.</span></h2>
+      <p class="d">Real AI success comes from creating value on two connected fronts — business value and human value. Together, they turn technology into lasting impact.</p>
+      <div class="eq"><span style="font-family:Georgia,serif;font-size:34px;vertical-align:-6px">“</span>&nbsp; Elevate the human,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;accelerate the business. <span style="font-family:Georgia,serif">”</span></div>
+    </div>
+    <div class="venn">
+      <div class="vc" style="left:0"><svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4.5" height="9" rx="1"/><rect x="9.75" y="7" width="4.5" height="14" rx="1"/><rect x="16.5" y="3" width="4.5" height="18" rx="1"/></svg><h4>Business value</h4><span class="pill">Scale revenue with precision</span><span class="pill">Growth with certainty</span><span class="pill">Foster go-to-market</span><span class="pill">Flow over friction</span><span class="pill">Precision execution</span></div>
+      <div class="vc" style="left:424px"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="9" r="2.3"/><circle cx="19" cy="9" r="2.3"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.6 3.6 0 0 1 5.4-3M22.5 19a3.6 3.6 0 0 0-5.4-3"/></svg><h4>Human value</h4><span class="pill">Empathy at scale</span><span class="pill">Maintain differentiation</span><span class="pill">From exhaustion to exhilaration</span><span class="pill">Higher quality decisions</span><span class="pill">Focus on what matters</span></div>
+      <div class="diamond"></div>
+    </div>
+  </section>
+
+  <!-- 03 PILLARS -->
+  <section class="pill3">
+    <div class="eb"><i>03.</i>Three pillars</div>
+    <h2>Mindset, metrics, model — <span class="acc">the Value DNA.</span></h2>
+    <div class="pcards"><div class="pcard"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/></svg><div><h4>Mindset</h4><p>Move from company-focused AI projects to user-anchored missions. Start with the people you serve — employees and customers — and design for their success.</p></div></div><div class="pcard"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4.5" height="9" rx="1"/><rect x="9.75" y="7" width="4.5" height="14" rx="1"/><rect x="16.5" y="3" width="4.5" height="18" rx="1"/></svg><div><h4>Metrics</h4><p>CAVU = Capability, Adoption, Value Unlock. A more complete lens that captures what traditional ROI misses.</p></div></div><div class="pcard"><svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg><div><h4>Model</h4><p>Launching AI isn’t landing AI. Enable → Engage → Elevate → Empower turns AI into lasting transformation.</p></div></div></div>
+  </section>
+
+  <!-- 04 CAVU -->
+  <section class="cavu dark">
+    <div class="eb"><i>04.</i>Measuring what matters</div>
+    <h2>Scorecards &amp; signals: <span class="acc">the CAVU model.</span></h2>
+    <p class="sub">A practical way to measure both business and human value.</p>
+    <div class="cvs">
+      <div class="cv">
+        <div class="cv-n">1</div>
+        <div class="cv-h"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg><b>Capability</b></div>
+        <p>What the tool can genuinely deliver. AI-assisted agile method cuts manual effort by up to 75%.</p>
+        <div class="cv-box"><small>Up to</small><strong>75%</strong><small>less manual effort</small></div>
+      </div>
+      <div class="cv">
+        <div class="cv-n">2</div>
+        <div class="cv-h"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="9" r="2.3"/><circle cx="19" cy="9" r="2.3"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.6 3.6 0 0 1 5.4-3M22.5 19a3.6 3.6 0 0 0-5.4-3"/></svg><b>Adoption</b></div>
+        <p>Tools are only as good as their use. A workflow drops from 45–60 minutes to under 5 because it is easy enough to adopt.</p>
+        <div class="cv-box"><strong style="font-size:30px;line-height:1.25">45–60 mins<br>→ &lt; 5 mins</strong><small>when it’s easy to adopt</small></div>
+      </div>
+      <div class="cv">
+        <div class="cv-n">3</div>
+        <div class="cv-h"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4.5" height="9" rx="1"/><rect x="9.75" y="7" width="4.5" height="14" rx="1"/><rect x="16.5" y="3" width="4.5" height="18" rx="1"/></svg><b>Value Unlock</b></div>
+        <p>Beyond cost savings, include employee satisfaction, creativity, and customer empathy.</p>
+        <div class="cv-box list"><div class="ck"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#F5A33A" stroke="none"/><path d="m7.5 12.5 3 3 6-6" stroke="#111"/></svg><span>Higher employee satisfaction</span></div><div class="ck"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#F5A33A" stroke="none"/><path d="m7.5 12.5 3 3 6-6" stroke="#111"/></svg><span>More creativity</span></div><div class="ck"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#F5A33A" stroke="none"/><path d="m7.5 12.5 3 3 6-6" stroke="#111"/></svg><span>Stronger customer empathy</span></div></div>
+      </div></div>
+  </section>
+
+  <!-- 05 IN ACTION -->
+  <section class="act">
+    <div class="eb"><i>05.</i>In action</div>
+    <h2>A mutual value core: <span class="acc">enable, engage, elevate, empower.</span></h2>
+    <p class="note">A simple, proven model to turn AI from an experiment into enduring impact — for people and for performance.</p>
+    <div class="ring" style="left:62px"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg><b>Enable</b><span>Equip people with<br>the right tools<br>and support.</span></div><div class="ring" style="left:312px"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="3"/><circle cx="5" cy="9" r="2.3"/><circle cx="19" cy="9" r="2.3"/><path d="M7 20a5 5 0 0 1 10 0M1.5 19a3.6 3.6 0 0 1 5.4-3M22.5 19a3.6 3.6 0 0 0-5.4-3"/></svg><b>Engage</b><span>Drive adoption<br>through relevant,<br>meaningful use cases.</span></div><div class="ring" style="left:874px"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="12" width="4.5" height="9" rx="1"/><rect x="9.75" y="7" width="4.5" height="14" rx="1"/><rect x="16.5" y="3" width="4.5" height="18" rx="1"/></svg><b>Elevate</b><span>Expand impact<br>across teams<br>and use cases.</span></div><div class="ring" style="left:1122px"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4.5"/><path d="M19.5 21a7.5 7.5 0 0 0-15 0"/></svg><b>Empower</b><span>Make it lasting<br>with ownership,<br>skills, and culture.</span></div>
+    <div class="core"><b>Mutual<br>value core</b><span>People + Performance<br>Reinforce Each Other</span></div>
+    <div class="dbl" style="left:546px">↔</div>
+    <div class="dbl" style="left:860px">↔</div>
+  </section>
+
+  <!-- 06 INDUSTRY -->
+  <section class="ind">
+    <div class="eb"><i>06.</i>Industry transformation</div>
+    <h2>BHV in action, sector by sector.</h2>
+    <div class="secs">
+      <div class="sec">
+        <div class="sec-h"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 2v2M5 2v2M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg><div><b>Healthcare</b><span>Reducing burnout,<br>restoring balance</span></div></div>
+        <div class="stat"><strong>69% → 43%</strong><small>burnout in 5 weeks</small></div>
+        <div class="stat"><strong>2.6 hrs</strong><small>saved per week</small></div>
+      </div>
+      <div class="sec">
+        <div class="sec-h"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></svg><div><b>Customer service</b><span>Shielding agents<br>from stress</span></div></div>
+        <div class="stat"><strong>30–45%</strong><small>typical annual turnover</small></div>
+        <div class="stat"><strong>87%</strong><small>report high workplace stress</small></div>
+      </div>
+      <div class="sec">
+        <div class="sec-h"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="m8 6-6 6 6 6"/><path d="m16 6 6 6-6 6"/><path d="m14 3-4 18"/></svg><div><b>Software &amp; tech</b><span>Empowering<br>creativity</span></div></div>
+        <div class="stat"><strong>55%</strong><small>faster coding tasks</small></div>
+        <div class="stat"><strong>90%</strong><small>feel more fulfilled</small></div>
+      </div>
+      <div class="sec">
+        <div class="sec-h"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#F5A33A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg><div><b>Education</b><span>Freeing educators<br>for students</span></div></div>
+        <div class="stat"><strong>5.9 hrs</strong><small>saved per week</small></div>
+        <div class="stat"><strong>44%</strong><small>of K-12 teachers burned out</small></div>
+      </div></div>
+  </section>
+
+  <!-- 07 CONCLUSION -->
+  <section class="concl dark">
+    <div class="eb"><i>07.</i>Conclusion</div>
+    <h2>A new ROI: <span class="acc">rejuvenated humans,</span><br>not just efficient processes.</h2>
+    <p>When people have better experiences at work, it shows up in hard outcomes — stronger retention, higher productivity, and better service quality. Business and human value reinforce each other, creating a flywheel of sustained impact.</p>
+    <a class="btn fill">Download the full whitepaper →</a>
+    <div class="q">
+      <div class="qm">“</div>
+      <blockquote>Human value isn’t a soft metric. It’s a strategic advantage.</blockquote>
+      <div class="who"><b>Mukund Balasubramanian</b><small>Co-Founder &amp; CTO, Photon</small></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="logo"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" stroke="#F5A33A" stroke-width="2.2"><path d="M17 2.5 29.5 9.75v14.5L17 31.5 4.5 24.25V9.75z"/><circle cx="17" cy="17" r="6"/></svg><span>PHOTON</span></div>
+    <div class="links"><span>Consulting</span><span>Platform</span><span>Industries</span><span>Insights</span><span>About</span><span>Careers</span></div>
+    <div class="social"><span style="font:800 17px/1 Plus Jakarta Sans,sans-serif">in</span><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M18.9 2H22l-7.1 8.1L23.3 22h-6.6l-5.2-6.8L5.6 22H2.5l7.6-8.7L2 2h6.8l4.7 6.2zm-1.1 18h1.7L7.3 3.9H5.5z"/></svg><svg width="22" height="16" viewBox="0 0 22 16"><rect width="22" height="16" rx="4" fill="#fff"/><path d="M9 4.5v7l6-3.5z" fill="#111"/></svg></div>
+  </footer>
+
+</div>
+</body>
+</html>
